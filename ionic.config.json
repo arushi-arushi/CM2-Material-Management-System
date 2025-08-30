@@ -1,0 +1,7 @@
+{
+  "name": "CM2-Material-Management-System",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
