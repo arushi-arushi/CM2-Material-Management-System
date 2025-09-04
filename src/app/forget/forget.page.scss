@@ -1,0 +1,31 @@
+.forgets {
+  display: flex;                  /* enable flex */
+  text-align: center;
+  min-height: 100vh;               /* take full height */
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  .forget-box {
+    width: 100%;
+    max-width: 400px;             /* control box width */
+     background: #fff;
+  }
+
+  ion-item {
+    margin-bottom: 10px;
+    --background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding-left: 10px;
+  }
+
+  .error {
+    text-align: left;
+    margin-bottom: 10px;
+
+    small {
+      color: red;
+      font-size: 12px;
+    }
+  }
+}

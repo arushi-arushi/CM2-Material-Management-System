@@ -1,0 +1,51 @@
+.main-content {
+  padding: 20px;
+
+
+  .form-group {
+    display: flex;
+    // flex-direction: wrap;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 5px;
+    label {
+      width: 150px; /* fixed width for labels */
+      font-weight: 500;
+    }
+    span{
+        color: red;
+    }
+
+    .form-control {
+      flex: 1; /* input expands to take remaining space */
+      border-radius: 0px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      font-size: small;
+      color: grey;
+    }
+    
+  }
+    .table-button {
+    border-radius: 0;
+    background-color: #e1c068;
+    text-align: center;
+    margin-right: 25px;
+    height: 30px;
+    width: 150px;
+    line-height: 2px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+
+  textarea.form-control {
+  
+    width: 100%;
+    height: 100%; /* makes it fill the column */
+    min-height: 76px; /* match Selling + Quantity height roughly */
+    resize: none; /* prevent user from dragging */
+}
+
+}
+

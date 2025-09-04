@@ -1,0 +1,104 @@
+<ion-content>
+  <ion-grid class="login">
+    <ion-row>
+      <!-- Left Side -->
+      <ion-col size="12" size-md="6" class="left">
+        <div class="logo-img mb-2">
+          <img src="assets/image/logo.png" alt="logo" class="w-25"  />
+        </div>
+
+        <h4>Centralized Material Management System</h4>
+
+        <div class="combo-img">
+  <div class="robot-stock">
+    <img src="assets/image/robot.png" alt="robot" class="robot" />
+    <img src="assets/image/stock.png" alt="stock" class="stock" />
+  </div>
+</div>
+
+
+        <h5 class="my-3 mt-5">
+          Know your <span class="spans">STOCK</span>, grow your
+          <span class="spans">PROFITS</span>
+        </h5>
+
+        <div class="footer-icons">
+          <h6>For more information-</h6>
+          <img src="assets/image/fb.png" alt="facebook" />
+          <img src="assets/image/insta.png" alt="insta" />
+          <img src="assets/image/yt.png" alt="youtube" />
+        </div>
+      </ion-col>
+
+      <!-- Right Side -->
+      <ion-col size="12" size-md="6" class="right">
+  <div class="login-box">
+    <h6>A product of</h6>
+    <img src="assets/image/com-logo.png" alt="company logo" class="com-logo" />
+
+    <h3>Sign In</h3>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!-- Login ID -->
+  <ion-item lines="none">
+    <ion-input 
+      formControlName="loginId" 
+      placeholder="Login Id">
+    </ion-input>
+  </ion-item>
+  @if (loginForm.get('loginId')?.touched && loginForm.get('loginId')?.invalid) {
+    <div class="error">
+      @if (loginForm.get('loginId')?.errors?.['required']) {
+        <small>Login Id is required</small>
+      }
+      @if (loginForm.get('loginId')?.errors?.['email']) {
+        <small>Enter a valid email</small>
+      }
+    </div>
+  }
+
+  <!-- Password -->
+  <ion-item lines="none">
+    <ion-input 
+      formControlName="password" 
+      placeholder="Password" 
+      type="password">
+    </ion-input>
+  </ion-item>
+  @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+    <div class="error">
+      @if (loginForm.get('password')?.errors?.['required']) {
+        <small>Password is required</small>
+      }
+      @if (loginForm.get('password')?.errors?.['minlength']) {
+        <small>Minimum 6 characters</small>
+      }
+    </div>
+  }
+
+  <!-- Remember + Forgot -->
+  <div class="extra-options">
+    <div class="gaps">
+    <ion-checkbox formControlName="rememberMe"></ion-checkbox>
+    <label>Remember Me</label>
+    </div>
+    <a class="forgot" (click)="forget()" >Forgot Password?</a>
+  </div>
+
+  <!-- Submit Button -->
+  <ion-button expand="block" type="submit" color="primary" [disabled]="loginForm.invalid">
+    Log In
+  </ion-button>
+  <small>Don't have an account? Please contact Administrator</small>
+</form>
+ <footer class="d-flex gap-4 justify-content-center right-footer ms-2">
+     <small>Contact Us</small>
+     <small>Privacy Policy</small>
+     <small>Terms & Condition</small>
+  </footer>
+  </div>
+   
+</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

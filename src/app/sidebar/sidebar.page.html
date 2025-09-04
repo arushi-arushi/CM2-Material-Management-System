@@ -1,0 +1,32 @@
+
+  <!-- Sidebar toggle button fixed on the edge -->
+  <div class="toggle-btn fs-4" (click)="sideBar()">
+    <ion-icon [name]="sidebarOpen ? 'caret-back' : 'caret-forward'"></ion-icon>
+  </div>
+
+  <!-- Main container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <div class="sidebar" [class.open]="sidebarOpen">
+      <h5 class="menu-title" (click)="sideBar()">Dashboard</h5>
+
+      <!-- Setup with toggle -->
+      <div class="menu-item" (click)="toggleSetup()">
+        <ion-icon slot="start" [name]="showSetup ? 'caret-back' : 'caret-forward'" color="secondary"></ion-icon>
+        <span class="menu-label ps-2">Setup</span>
+      </div>
+
+      <!-- Nested setup items -->
+       @if(showSetup){
+      <div class="setup-items" >
+        <ion-item lines="none">User</ion-item>
+        <ion-item lines="none">Security Group</ion-item>
+       </div>
+    }
+      <ion-item lines="none">Stock Entry</ion-item>
+      <ion-item lines="none">Sale</ion-item>
+      <ion-item lines="none">Report</ion-item>
+      <ion-item lines="none">Accounting</ion-item>
+      <ion-item lines="none">User Manual</ion-item>
+      <ion-item lines="none">About CM2</ion-item>
+    </div>

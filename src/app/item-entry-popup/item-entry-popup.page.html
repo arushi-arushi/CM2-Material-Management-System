@@ -1,0 +1,106 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+<ion-content>
+  <div class="main-content">
+    <form [formGroup]="itemEntry" (ngSubmit)="onSubmit()">
+      <ion-row>
+        <ion-col>
+      <div class="form-group">
+        <label for="bar">Product BarCode</label>
+        <input type="text" class="form-control" formControlName="bar" placeholder="Bar Code"/>
+          </div>
+          </ion-col>
+          <ion-col>
+      <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" formControlName="category">
+            <option value="" disabled selected>Category</option>
+            @for (c of category; track c) {
+            <option [value]="c">{{ c }}</option>
+            }
+          </select>
+        </div> <span>*</span>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+      <div class="form-group">
+        <label for="name">Product Name <span>*</span></label>
+        <input type="text" class="form-control" formControlName="name" placeholder="Product Name"/>
+      </div>
+      </ion-col>
+      <ion-col>
+      <div class="form-group">
+        <label for="bar">stock</label>
+        <input type="text" class="form-control" formControlName="stock" placeholder="Min Stock"/>
+      </div>
+      </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+      <div class="form-group">
+        <label for="purchasePrice">Purchase Price <span>*</span></label>
+        <input type="text" class="form-control" formControlName="purchasePrice" placeholder="Purchase Price"/>
+      </div>
+      </ion-col>
+      <ion-col>
+      <div class="form-group">
+        <label for="period">Warranty Period</label>
+        <input type="text" class="form-control" formControlName="period" placeholder="Warranty Period"/>
+      </div>
+      </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+      <div class="form-group">
+        <label for="sellingPrice">Selling Price <span>*</span></label>
+        <input type="text" class="form-control" formControlName="sellingPrice" placeholder="Selling Price"/>
+</div>
+         <div class="form-group">
+        <label for="qty">Quantity <span>*</span></label>
+        <input type="text" class="form-control" formControlName="qty" placeholder="Quantity"/>
+      </div>
+      </ion-col>
+      <ion-col>
+        <div class="form-group comments">
+          <label for="comment">Comment</label>
+          <textarea class="form-control" formControlName="comment"></textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+      <div class="form-group">
+         <label for="uom">UOM <span>*</span></label>
+          <select class="form-control" formControlName="uom">
+            <option value="" disabled selected>UOM</option>
+            @for (u of category; track u) {
+            <option [value]="u">{{ u }}</option>
+            }
+          </select>
+           </div>
+           </ion-col>
+           <ion-col>
+      <div class="form-group">
+          <label for="addQuantity">Add Qunatity</label>
+          <ion-checkbox></ion-checkbox>
+      </div>
+      </ion-col>
+      </ion-row>
+       <div class="d-flex justify-content-between align-items-center mt-5">
+          <div class="d-flex ">
+            <button type="submit" class="btn table-button ">Submit</button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="cancel()"
+            >
+            Cancel
+            </button>
+            </div>
+            </div>
+    </form>
+    
+  </div>
+</ion-content>

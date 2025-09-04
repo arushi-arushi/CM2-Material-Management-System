@@ -1,0 +1,99 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+<ion-content>
+  <div class="layout-container">
+    <app-sidebar (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <!-- Main Content -->
+    <div class="main-content" [class.shifted]="sidebarOpen">
+      <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="vendor">Vendor Name <span>*</span></label>
+          <select class="form-control" formControlName="vendor">
+            <option value="" disabled selected>Vendor Name</option>
+            @for (v of vendors; track v) {
+            <option [value]="v">{{ v }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="invoice">Invoice No</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="invoice"
+            placeholder="Invoice No"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Transaction Date</label>
+          <input type="date" class="form-control" formControlName="date" />
+        </div>
+
+        <div class="form-group">
+          <label for="comment">Comment</label>
+          <textarea class="form-control" formControlName="comment"></textarea>
+        </div>
+        <div class="form-group">
+          <!-- <search class="form-control item" formControlName="items" placeholder="Type item name i.e. Wire"></search> -->
+          <ion-searchbar
+            formControlName="items"
+            placeholder="Type item name i.e. Wire"
+            class="item"
+          >
+          </ion-searchbar>
+        </div>
+
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>Product Bar Code</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Product Purchase</th>
+              <th>Selling Price</th>
+              <th>quantity</th>
+              <th>UOM</th>
+              <th>Add</th>
+              <th>Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productList; let i = index">
+              <td>{{ item.barcode }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.category || '-' }}</td>
+              <td>{{ item.purchasePrice }}</td>
+              <td>{{ item.sellingPrice }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.uom }}</td>
+              <td>{{item.add}}</td>
+              <td>{{ item.comment }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-5">
+          <div class="d-flex ">
+            <button type="submit" class="btn table-button ">Submit</button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="resetForm()"
+            >
+              Reset
+            </button>
+            <p>Total
+              <button type="button" class="btn total-button">Total</button>
+            </p>
+            <button type="button" class="btn table-button" (click)="scanBarcode()">
+              Scan
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,25 @@
+<div class="forgets">
+  <div class="forget-box ">
+  <h4>Forget Password</h4>
+  <form [formGroup]="forgetForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="none">
+      <ion-input 
+      formControlName="emailId"
+      placeholder="Email Id"
+      class="w-50 text-align-center">
+      </ion-input>
+    </ion-item>
+    @if(forgetForm.get('emailId')?.touched && forgetForm.get('emailId')?.invalid){
+       <div class="error">
+        @if(forgetForm.get('emailId')?.errors?.['required']){
+          <small>Email Id is required</small>
+        }
+        @if(forgetForm.get('emailId')?.errors?.['email']){
+         <small>Enter a valid email</small>
+        }
+       </div>
+    }
+    <ion-button expand="block" type="submit" color="primary" [disabled]="forgetForm.invalid">Submit</ion-button>
+  </form>
+  </div>
+</div>
