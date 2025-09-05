@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import {addIcons} from 'ionicons';
-import { caretBack, caretDownOutline, caretForward, chevronDownOutline, chevronUpCircleOutline } from 'ionicons/icons';
+import { caretBack, caretDownOutline, caretForward, chevronDownOutline, chevronUpCircleOutline, createOutline, trashOutline } from 'ionicons/icons';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -13,7 +13,7 @@ export class AppComponent {
   }
   addAllIcons(){
     addIcons({
-     caretForward,caretBack
+     caretForward,caretBack,createOutline,trashOutline
     })
   }
 }

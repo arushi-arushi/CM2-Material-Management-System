@@ -1,0 +1,201 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+<ion-content>
+  <div class="layout-container">
+    <app-sidebar (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <!-- Main Content -->
+    <div class="main-content" [class.shifted]="sidebarOpen">
+      <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+        <ion-row class="gap-3">
+          <ion-col>
+            <div class="form-group">
+              <label for="transType">Transaction Type <span>*</span></label>
+              <div class="input-wrapper">
+                <select class="form-control" formControlName="transType">
+                  <option value="" disabled selected>Transaction Type</option>
+                  @for (t of transType; track t) {
+                  <option [value]="t">{{ t}}</option>
+                  }
+                </select>
+                @if(itemForm.get('transType')?.touched){
+                <div class="error">
+                  @if (itemForm.get('transType')?.errors?.['required']) {
+                  <small>Transaction Type is required</small> }
+                </div>
+                }
+              </div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="form-group">
+              <label for="bill">Bill No</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="invoice"
+                placeholder="Bill No"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="gap-3">
+          <ion-col>
+            <div class="form-group">
+              <label for="name">Customer Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                placeholder="Customer Name"
+              />
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="form-group">
+              <label for="mobile">Mobile No</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="mobile"
+                placeholder="Mobile No"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="form-group">
+              <label for="comment">Comment</label>
+              <textarea
+                class="form-control comment"
+                formControlName="comment"
+                placeholder="Comment"
+              ></textarea>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="form-group">
+              <ion-searchbar
+                formControlName="items"
+                placeholder="Type item name i.e. Wire"
+                class="item"
+              >
+              </ion-searchbar>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>Item Code</th>
+              <th>Item Name</th>
+              <th>Category</th>
+              <th>Current Stock</th>
+              <th>Purchase Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+              <th>UOM</th>
+              <th>Min Stock</th>
+              <th>Warranty Period</th>
+              <th>Location</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productList; let i = index">
+              <td>{{ item.code }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.category || '-' }}</td>
+              <td>{{item.curStock}}</td>
+              <td>{{ item.purchasePrice }}</td>
+              <td>{{ item.quantity}}</td>
+              <td>{{ item.total }}</td>
+              <td>{{ item.uom }}</td>
+              <td>{{item.minStock}}</td>
+              <td>{{ item.warPeriod }}</td>
+              <td>{{item.location}}</td>
+              <td class="text-center">
+                <!-- Edit Icon -->
+                <ion-icon
+                  name="create-outline"
+                  class="action-icon edit-icon"
+                  (click)="editProduct(i)"
+                >
+                </ion-icon>
+
+                <!-- Delete Icon -->
+                <ion-icon
+                  name="trash-outline"
+                  class="action-icon delete-icon ms-2"
+                  (click)="deleteProduct(i)"
+                >
+                </ion-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <div class="totals-section">
+  <ion-row>
+    <ion-col>
+      <div class="total-row">
+        <span>Purchase Price Total</span>
+        <button type="button" class="btn total-button">Purchase Total</button>
+      </div>
+    </ion-col>
+    <ion-col>
+      <div class="total-row">
+        <span>Discount %</span>
+        <button type="button" class="btn total-button">Discount</button>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <div class="total-row">
+        <span>Selling Price Total</span>
+        <button type="button" class="btn total-button">Grand Total</button>
+      </div>
+    </ion-col>
+    <ion-col>
+      <div class="total-row">
+        <span>Selling Price After Discount</span>
+        <button type="button" class="btn total-button">Grand Total</button>
+      </div>
+    </ion-col>
+  </ion-row>
+</div>
+
+        <div class="d-flex justify-content-between align-items-center my-5">
+          <div class="d-flex">
+            <button
+              type="submit"
+              class="btn table-button"
+              [disabled]="itemForm.invalid"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="resetForm()"
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="scanBarcode()"
+            >
+              Scan
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>

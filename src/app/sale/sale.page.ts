@@ -5,18 +5,20 @@ import { HeaderPage } from '../header/header.page';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SidebarPage } from "../sidebar/sidebar.page";
 
+
+
 @Component({
-  selector: 'app-stock-entry',
-  templateUrl: './stock-entry.page.html',
-  styleUrls: ['./stock-entry.page.scss'],
+  selector: 'app-sale',
+  templateUrl: './sale.page.html',
+  styleUrls: ['./sale.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, HeaderPage, SidebarPage, ReactiveFormsModule, SidebarPage],
 })
-export class StockEntryPage implements OnInit {
-  sidebarOpen=false;
+export class SalePage implements OnInit {
+sidebarOpen=false;
    @ViewChild(SidebarPage) stock!:SidebarPage;
-  materialForm: FormGroup;
-  vendors = ['Vendor A', 'Vendor B', 'Vendor C'];
+  itemForm: FormGroup;
+  transType = ['Type A', 'Type B', 'Type C'];
   productList = [
     {
       code: '123456789123',
@@ -36,11 +38,12 @@ export class StockEntryPage implements OnInit {
   totalAmount = 0;
 
   constructor(private fb: FormBuilder) {
-    this.materialForm = this.fb.group({
-      vendor: ['',Validators.required],
-      invoice: [''],
-      date: [''],
-      comment: [''],
+    this.itemForm = this.fb.group({
+      transType: ['',Validators.required],
+      bill: [''],
+      name: [''],
+      mobile: [''],
+      comment:['']
     });
 
     this.calculateTotal();
@@ -70,14 +73,16 @@ deleteProduct(index: number) {
   this.calculateTotal();
 }
   onSubmit() {
-    console.log('Form submitted:', this.materialForm.value);
+    console.log('Form submitted:', this.itemForm.value);
   }
 
   resetForm() {
-    this.materialForm.reset();
+    this.itemForm.reset();
   }
 
   scanBarcode() {
     console.log('Scan initiated');
   }
 }
+
+

@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Form Submitted:', this.loginForm.value);
-      this.route.navigate(['/home']);
+      this.route.navigate(['/user']);
     } else {
       this.loginForm.markAllAsTouched();
     }

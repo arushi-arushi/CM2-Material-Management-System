@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'item-entry-popup',
+    redirectTo: 'sale',
     pathMatch: 'full',
   },
   {
@@ -33,5 +33,21 @@ export const routes: Routes = [
   {
     path: 'item-entry-popup',
     loadComponent: () => import('./item-entry-popup/item-entry-popup.page').then( m => m.ItemEntryPopupPage)
+  },
+  {
+    path: 'user',
+    loadComponent: () => import('./user/user.page').then( m => m.UserPage)
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./reset-password/reset-password.page').then( m => m.ResetPasswordPage)
+  },
+  {
+    path: 'sale',
+    loadComponent: () => import('./sale/sale.page').then( m => m.SalePage)
+  },
+  {
+    path: 'sales-return',
+    loadComponent: () => import('./sales-return/sales-return.page').then( m => m.SalesReturnPage)
   },
 ];

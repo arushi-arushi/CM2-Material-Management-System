@@ -16,13 +16,13 @@
           <label for="category">Category</label>
           <select class="form-control" formControlName="category">
             <option value="" disabled selected>Category</option>
-            @for (c of category; track c) {
-            <option [value]="c">{{ c }}</option>
+            @for (z of category; track z) {
+            <option [value]="z">{{ z }}</option>
             }
           </select>
         </div> <span>*</span>
         </ion-col>
-        </ion-row>
+      </ion-row>
         <ion-row>
           <ion-col>
       <div class="form-group">
