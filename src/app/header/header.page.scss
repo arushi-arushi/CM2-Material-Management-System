@@ -2,5 +2,39 @@
   --padding-start: 0 !important;
   --inner-padding-end: 0 !important;
 }
+#userMenuTrigger{
+  cursor: pointer;
+}
+/* Make popover rounded and add shadow */
+ion-popover {
+  --width: 220px;          /* control width */
+  --min-width: 200px;
+  --border-radius: 12px;
+  --box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+.userIcon{
+margin-right: 20px;
+@media (max-width:380px) {
+  margin-right:5px ;
+  .ion-gap{
+    gap: 1px !important;
+  }
+}
+}
+/* Style each item */
 
-
+ion-popover.my-primary-popover ion-list {
+  background: transparent; /* or primary if you want it */
+}
+ion-popover ion-item {
+  --min-height: 35px;
+  font-size: 13px;
+}
+/* Add icons spacing */
+ion-popover ion-item ion-icon{
+  margin-right: 8px;
+}
+.my-primary-popover ion-item:hover{
+  background: #fff;
+ transform: scaleX(1.1);
+}

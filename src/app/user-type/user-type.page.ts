@@ -5,39 +5,22 @@ import { HeaderPage } from '../header/header.page';
 import { SidebarPage } from '../sidebar/sidebar.page';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ResetPasswordPage } from '../reset-password/reset-password.page';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.page.html',
-  styleUrls: ['./user.page.scss'],
+  selector: 'app-user-type',
+  templateUrl: './user-type.page.html',
+  styleUrls: ['./user-type.page.scss'],
   standalone: true,
   imports: [ IonicModule, CommonModule,ReactiveFormsModule, HeaderPage,SidebarPage]
 })
-export class UserPage implements OnInit {
+export class UserTypePage implements OnInit {
 sidebarOpen=false;
    @ViewChild(SidebarPage) stock!:SidebarPage;
    userForm:FormGroup;
    role=['role1','role2','role3'];
-   
-userList = [
-    {
-       category: 'Admin',
-      userName: 'CD',
-       active:'yes',
-     action:'',
-    },
-    {
-       category: 'Admin',
-      userName: 'Suraj',
-       active:'yes',
-     action:'',
-    }
-  ];
 
   constructor(private fb:FormBuilder,private route:Router,private popoverController:PopoverController) {
     this.userForm=this.fb.group({
-      items:[''],
       name:['',[Validators.required,Validators.pattern,Validators.minLength(3)]],
       role:['',Validators.required],
       password:['',[Validators.required,Validators.minLength(6)]],
@@ -58,20 +41,5 @@ this.route.navigate(['/reset-password']);
 }
 delete(){
 
-}
-editProduct(){
-
-}
-deleteProduct(){
-
-}
-async resetButton(ev:any){
-  const popover=await this.popoverController.create({
-    component:ResetPasswordPage,
-    event:ev,
-    translucent:true,
-    cssClass:'custom-popover'
-  });
-  await popover.present();
 }
 }

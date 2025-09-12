@@ -1,13 +1,58 @@
-<!-- Top header -->
 <ion-header>
-  <ion-item lines="none" class="d-flex custom-header align-items-center" color="primary">
-    <div class="d-flex align-items-center gap-2">
-      <img src="assets/image/logo.png" alt="CM2 Logo" style="width: 147px;" />
-      <div>
-        <h6 class="fw-bold fs-5">Centralized Material Management System</h6>
+  <ion-item lines="none" class="custom-header" color="primary">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      
+      <!-- Left side -->
+      <div class="d-flex align-items-center gap-1">
+        <img src="assets/image/logo.png" alt="CM2 Logo" style="width: 128px;" />
+        <p class="fw-bold m-0">Centralized Material Management System</p>
+      </div>
+
+      <!-- Right side -->
+      <!-- <div class="d-flex align-items-center me-4 gap-2">
+        <ion-icon name="person-circle-outline" size="large"></ion-icon>
+        <div class="d-flex flex-column text-end">
+          <span class="fw-bold">User</span>
+          <small class="text-muted">Role</small>
+        </div>
+      </div> -->
+
+ <div class="d-flex align-items-center gap-2 userIcon">
+  @if(showUserIcon){
+    <div class="d-flex gap-3 align-items-center ion-gap" id="userMenuTrigger">
+    <ion-icon name="person-circle-outline" size="large"  ></ion-icon>
+   <div class="text-end" >
+          <p class="m-0" id="userMenuTrigger">Aarushi</p>
+          <p class="m-0 small">User</p>
+        </div>
+      </div>  
+  }
+  @if(showCloseIcon){
+     <ion-icon name="close-outline" size="large" (click)="onClose()"></ion-icon>
+  }
+       
       </div>
     </div>
   </ion-item>
 </ion-header>
+<ion-popover trigger="userMenuTrigger" side="bottom" alignment="end" dismissOnSelect="true" cssClass="my-primary-popover">
+  <ng-template>
+    <ion-content class="ion-padding" color="primary" >
+      <ion-list >
+        <ion-item lines="none" button (click)="goToProfile()" color="primary">
+          <ion-icon slot="start" name="person-outline"></ion-icon>
+           Profile
+        </ion-item>
+        <ion-item lines="none" button (click)="changePassword()" color="primary">
+          <ion-icon slot="start" name="key-outline"></ion-icon>
+          Change Password
+        </ion-item>
+        <ion-item lines="none" button (click)="logout()" color="primary">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          Logout
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
 
-
+</ion-popover>

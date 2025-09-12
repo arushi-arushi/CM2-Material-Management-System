@@ -1,0 +1,19 @@
+.layout-container {
+  display: flex;
+  flex-direction: row;
+   width: 100%;
+}
+app-sidebar {
+  flex-shrink: 0;
+}
+/* Main content adjusts when sidebar opens */
+.main-content {
+  flex: 1;
+   ion-row{
+       column-gap: 36px; /* horizontal gap between columns */
+  // row-gap: 16px;    /* vertical gap between rows */
+    }
+.main-content.shifted {
+  margin-left: 15px; /* same width as sidebar in HeaderPage */
+} 
+}

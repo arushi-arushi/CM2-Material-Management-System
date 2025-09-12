@@ -2,12 +2,8 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
     path: '',
-    redirectTo: 'sale',
+    redirectTo: 'user',
     pathMatch: 'full',
   },
   {
@@ -47,7 +43,31 @@ export const routes: Routes = [
     loadComponent: () => import('./sale/sale.page').then( m => m.SalePage)
   },
   {
-    path: 'sales-return',
-    loadComponent: () => import('./sales-return/sales-return.page').then( m => m.SalesReturnPage)
+    path: 'dasboard',
+    loadComponent: () => import('./dasboard/dasboard.page').then( m => m.DasboardPage)
+  },
+  {
+    path: 'user-type',
+    loadComponent: () => import('./user-type/user-type.page').then( m => m.UserTypePage)
+  },
+  {
+    path: 'item-multiple-popup',
+    loadComponent: () => import('./item-multiple-popup/item-multiple-popup.page').then( m => m.ItemMultiplePopupPage)
+  },
+  {
+    path: 'sale-return',
+    loadComponent: () => import('./sale-return/sale-return.page').then( m => m.SaleReturnPage)
+  },
+  {
+    path: 'sale-defective',
+    loadComponent: () => import('./sale-defective/sale-defective.page').then( m => m.SaleDefectivePage)
+  },
+  {
+    path: 'sale-report',
+    loadComponent: () => import('./sale-report/sale-report.page').then( m => m.SaleReportPage)
+  },
+  {
+    path: 'item-report',
+    loadComponent: () => import('./item-report/item-report.page').then( m => m.ItemReportPage)
   },
 ];

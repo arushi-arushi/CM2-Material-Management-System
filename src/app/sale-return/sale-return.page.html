@@ -7,13 +7,13 @@
     <!-- Main Content -->
     <div class="main-content" [class.shifted]="sidebarOpen">
       <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-        <ion-row >
-          <ion-col size="12" size-md="3" >
+        <ion-row>
+          <ion-col size="12" size-md="3">
             <div class="form-group">
               <label for="transType">Transaction Type <span class="spans">*</span></label>
               <div class="input-wrapper">
                 <select class="form-control" formControlName="transType">
-                  <option value="" disabled selected>Transaction Type</option>
+                  <option value="" disabled selected>Return</option>
                   @for (t of transType; track t) {
                   <option [value]="t">{{ t}}</option>
                   }
@@ -27,7 +27,7 @@
               </div>
             </div>
           </ion-col>
-          <ion-col size="12" size-md="3" >
+          <ion-col size="12" size-md="3">
             <div class="form-group">
               <label for="bill" class="labels">Bill No</label>
               <input
@@ -39,8 +39,8 @@
             </div>
           </ion-col>
         </ion-row>
-        <ion-row >
-          <ion-col size="12" size-md="3" >
+        <ion-row>
+          <ion-col size="12" size-md="3">
             <div class="form-group">
               <label for="name">Customer Name</label>
               <input
@@ -51,7 +51,7 @@
               />
             </div>
           </ion-col>
-          <ion-col size="12" size-md="3" >
+          <ion-col size="12" size-md="3">
             <div class="form-group">
               <label for="mobile" class="labels">Mobile No</label>
               <input
@@ -63,21 +63,9 @@
             </div>
           </ion-col>
         </ion-row>
-        <ion-row >
-          <ion-col size="12" >
-            <div class="form-group">
-              <label for="comment">Comment</label>
-              <textarea
-                class="form-control comment"
-                formControlName="comment"
-                placeholder="Comment"
-              ></textarea>
-            </div>
-          </ion-col>
-        </ion-row>
         <ion-row>
-          <ion-col >
-            <div class="form-group ">
+          <ion-col>
+            <div class="form-group">
               <ion-searchbar
                 formControlName="items"
                 placeholder="Type item name i.e. Wire"
@@ -87,7 +75,7 @@
             </div>
           </ion-col>
         </ion-row>
-         <div class="table-container">
+        <div class="table-container">
         <table class="table table-bordered table-sm mt-5">
           <thead>
             <tr>
@@ -99,6 +87,7 @@
               <th>Qty</th>
               <th>Total</th>
               <th>UOM</th>
+              <th>MRP</th>
               <th>Min Stock</th>
               <th>Warranty Period</th>
               <th>Location</th>
@@ -115,6 +104,7 @@
               <td>{{ item.quantity}}</td>
               <td>{{ item.total }}</td>
               <td>{{ item.uom }}</td>
+              <td>{{item.mrp}}</td>
               <td>{{item.minStock}}</td>
               <td>{{ item.warPeriod }}</td>
               <td>{{item.location}}</td>
@@ -140,7 +130,7 @@
         </table>
         </div>
       <div class="totals-section">
-  <ion-row>
+  <ion-row >
     <ion-col size="12" size-md="3">
       <div class="total-row">
         <span>Purchase Price Total</span>
@@ -155,16 +145,16 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <ion-row >
     <ion-col size="12" size-md="3">
       <div class="total-row">
-        <span>Selling Price Total</span>
+        <span>MRP Total</span>
         <button type="button" class="btn total-button">Grand Total</button>
       </div>
     </ion-col>
     <ion-col size="12" size-md="3">
       <div class="total-row">
-        <span>Selling Price After Discount</span>
+        <span>Final Payable</span>
         <button type="button" class="btn total-button">Grand Total</button>
       </div>
     </ion-col>
@@ -172,7 +162,7 @@
 </div>
 
         <div class="d-flex justify-content-between align-items-center my-5">
-          <div class="d-flex ">
+          <div class="d-flex">
             <button
               type="submit"
               class="btn table-button"

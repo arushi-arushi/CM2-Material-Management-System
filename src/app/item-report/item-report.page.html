@@ -1,0 +1,148 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+<ion-content>
+  <div class="layout-container">
+    <app-sidebar header="Sales Entry" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <!-- Main Content -->
+    <div class="main-content" [class.shifted]="sidebarOpen">
+      <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+        <ion-row size="12" size-md="3">
+          <ion-col>
+            <div class="form-group">
+              <label for="reportType">Report Type <span class="spans">*</span></label>
+              <div class="input-wrapper">
+                <select class="form-control" formControlName="reportType">
+                  <option value="" disabled selected>Defective</option>
+                  @for (r of reportType; track r) {
+                  <option [value]="r">{{r }}</option>
+                  }
+                </select>
+                @if(itemForm.get('reportType')?.touched){
+                <div class="error">
+                  @if (itemForm.get('reportType')?.errors?.['required']) {
+                  <small>Report Type is required</small> }
+                </div>
+                }
+              </div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="form-group">
+              <label for="count" class="labels">Count</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="count"
+                placeholder="Count in number"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row size="12" size-md="3">
+          <ion-col>
+            <div class="form-group">
+              <label for="transFromDate">Transaction Date From</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="transFromDate"
+                placeholder="From Date"
+              />
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="form-group">
+              <label for="transToDate" class="labels">To</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="transToDate"
+                placeholder="To Date"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row size="12" size-md="3">
+          <ion-col>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="category"
+                placeholder="Item Category"
+              />
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="form-group">
+              <label for="itemName" class="labels">Item Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="itemName"
+                placeholder="Item Name"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+           <div class="d-flex justify-content-between align-items-center my-5">
+          <div class="d-flex">
+            <button
+              type="submit"
+              class="btn table-button"
+              [disabled]="itemForm.invalid"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="resetForm()"
+            >
+              Reset
+            </button>
+            </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <table class="table table-bordered table-sm mt-5">
+          <thead>
+            <tr>
+              <th>Item Code</th>
+              <th>Item Name</th>
+              <th>Category</th>
+              <th>Current Stock</th>
+              <th>UOM</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Threshold</th>
+              <th>Qty</th>
+              <th>Entry Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productList; let i = index">
+              <td>{{ item.code }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.category }}</td>
+              <td>{{item.curStock}}</td>
+              <td>{{ item.uom }}</td>
+              <td>{{item.category}}</td>
+              <td>{{ item.status }}</td>
+              <td>{{item.location}}</td>
+              <td>{{item.threshold}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.entryDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</ion-content>

@@ -5,13 +5,17 @@
 //   top: 80px;
   left: 0;
   z-index: 1000;
-  color: #8d8c8c;
   cursor: pointer;
+  width: 30px;
+  height: 25px;
+  background-color:#e1c068;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 
 .main-container {
   height: 100%;
-
+   width: 100%;
   .sidebar {
     width: 0;
     overflow-y: auto;
@@ -29,37 +33,42 @@
   }
 
   .sidebar.open {
-    width: 200px; // fixed width sidebar
+    width: 180px; // fixed width sidebar
   }
   .menu-title {
-    font-weight: bold;
-    margin: 12px 0;
-    padding-top: 10px;
-    padding-left: 25px;
-    font-size: 16px;
+    margin: 10px;
+    font-size: 12px;
     color: #000;
     cursor: pointer;
   }
    
-  ion-item {
-    --background: #e1c068;
+  .menu-title:hover {
+    --background: #d4af37;
     --color: #000;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 12.5px;
+    font-weight: 600;
     border-radius: 4px;
-    margin: 2px 10px;
+    // margin: 2px 10px;
     cursor: pointer;
-    &:hover {
-      background: #d4af37; // slightly darker golden on hover
-    }
+    // &:hover {
+    //   background: #d4af37; // slightly darker golden on hover
+    // }
   }
   .setup-items {
-    padding-left: 20px;
+    // padding-left: 20px;
 
     ion-item {
+      padding-left: 20px;
       font-size: 13px;
       font-weight: 400;
     }
   }
-  
+  @media (max-width:768px) {
+    .sidebar.open{
+      width: 150px;
+    }
+    ion-item{
+      padding-left: 1px;
+    }
+  }
 }

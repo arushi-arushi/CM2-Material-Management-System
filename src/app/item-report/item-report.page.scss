@@ -1,0 +1,74 @@
+
+.layout-container {
+  display: flex;
+  flex-direction: row;
+   width: 100%;
+
+app-sidebar {
+  flex-shrink: 0;
+}
+/* Main content adjusts when sidebar opens */
+.main-content {
+
+.main-content.shifted {
+  margin-left: 15px; /* same width as sidebar in HeaderPage */
+}
+
+
+.form-group{
+  display: flex;
+//  flex-direction: wrap;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  
+  label {
+    width: 110px;   /* fixed width for labels */
+    // margin-right:20px;
+    // font-weight: 500;
+  }
+  .labels{
+    width: 70px;
+  }
+  .input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* stack input and error vertically */
+  max-width: 400px;
+}
+   .spans{
+    color: red;
+   }
+  .form-control {
+    flex: 1;       /* input expands to take remaining space */
+    border-radius: 0px;
+    // box-shadow:2px 2px 2px rgba(0, 0, 0, 0.2); 
+     max-width: 400px;
+    font-size: 10px;
+    border:1px solid black;
+  }
+  .form-control:hover{
+   background-color: rgb(217, 213, 213);
+  }
+  .item{
+     max-width: 82%;
+    max-height: 0px;
+    margin-left: 102px; 
+  }
+}
+
+/* Table styling */
+
+.table-button {
+border-radius: 0;
+  background-color:  #e1c068;
+ text-align: center;
+  margin-right: 25px;
+ height: 26px;
+    line-height: 1px;
+  width: 150px;
+  // line-height: 2px;
+  border: 1px solid black;
+  margin-bottom: 30px !important;
+}
+}
+}

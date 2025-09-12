@@ -1,122 +1,180 @@
-<ion-header> <app-header></app-header></ion-header>
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+
 <ion-content>
   <div class="layout-container">
+    
     <app-sidebar (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
     <!-- Main Content -->
     <div class="main-content" [class.shifted]="sidebarOpen">
       <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="vendor">Vendor Name <span>*</span></label>
-          <div class="input-wrapper">
-            <select class="form-control" formControlName="vendor">
-              <option value="" disabled selected>Vendor Name</option>
-              @for (v of vendors; track v) {
-              <option [value]="v">{{ v }}</option>
-              }
-            </select>
-            @if(materialForm.get('vendor')?.touched){
-            <div class="error">
-              @if (materialForm.get('vendor')?.errors?.['required']) {
-              <small>Vendor Name is required</small> }
-            </div>
-            }
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="invoice">Invoice No</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="invoice"
-            placeholder="Invoice No"
-          />
-        </div>
-        <div class="form-group">
-          <label for="date">Transaction Date</label>
-          <input type="date" class="form-control" formControlName="date" />
-        </div>
-        <div class="form-group">
-          <label for="comment">Comment</label>
-          <textarea class="form-control" formControlName="comment"></textarea>
-        </div>
-            
-        <table class="table table-bordered table-sm">
-          <thead>
-            <tr>
-              <th>Item Code</th>
-              <th>Item Name</th>
-              <th>Category</th>
-              <th>Current Stock</th>
-              <th>Purchase Price</th>
-              <th>Qty</th>
-              <th>Total</th>
-              <th>UOM</th>
-              <th>Min Stock</th>
-              <th>Warranty Period</th>
-              <th>Location</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of productList; let i = index">
-              <td>{{ item.code }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.category || '-' }}</td>
-              <td>{{item.curStock}}</td>
-              <td>{{ item.purchasePrice }}</td>
-              <td>{{ item.quantity}}</td>
-              <td>{{ item.total }}</td>
-              <td>{{ item.uom }}</td>
-              <td>{{item.minStock}}</td>
-              <td>{{ item.warPeriod }}</td>
-              <td>{{item.location}}</td>
-              <td class="text-center">
-  <!-- Edit Icon -->
-  <ion-icon 
-    name="create-outline" 
-    class="action-icon edit-icon" 
-    (click)="editProduct(i)">
-  </ion-icon>
+        <ion-grid>
 
-  <!-- Delete Icon -->
-  <ion-icon 
-    name="trash-outline" 
-    class="action-icon delete-icon ms-2" 
-    (click)="deleteProduct(i)">
-  </ion-icon>
-</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="d-flex justify-content-between align-items-center mt-5">
-          <div class="d-flex">
-            <button
-              type="submit"
-              class="btn table-button"
-              [disabled]="materialForm.invalid"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              class="btn table-button"
-              (click)="resetForm()"
-            >
-              Reset
-            </button>
-            <p>
+          <!-- Transaction Type & Invoice No -->
+          <ion-row class="custom-gap" >
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label class="form-label">Transaction Type <span>*</span></label>
+                <div class="input-wrapper">
+                  <div class="select-wrapper">
+                    <select class="form-control" formControlName="transType">
+                      <option value="" disabled selected>Select Transaction Type</option>
+                      @for (t of transType; track t) {
+                        <option [value]="t">{{ t }}</option>
+                      }
+                    </select>
+                    <ion-icon name="caret-down-outline" class="select-icon"></ion-icon>
+                  </div>
+                  @if(materialForm.get('transType')?.touched){
+                    <div class="error">
+                      @if (materialForm.get('transType')?.errors?.['required']) {
+                        <small>Transaction Type is required</small>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label class="form-label">Invoice No</label>
+                <div class="input-wrapper">
+                  <div class="select-wrapper">
+                    <select class="form-control" formControlName="invoiceNo">
+                      <option value="" disabled selected>Enter Invoice No</option>
+                      @for (i of invoiceNos; track i) {
+                        <option [value]="i">{{ i }}</option>
+                      }
+                    </select>
+                    <ion-icon name="caret-down-outline" class="select-icon"></ion-icon>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <!-- Vendor Name & Invoice Date -->
+          <ion-row class="custom-gap">
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label class="form-label">Vendor Name <span>*</span></label>
+                <div class="input-wrapper">
+                  <div class="select-wrapper">
+                    <select class="form-control" formControlName="vendor">
+                      <option value="" disabled selected>Enter Vendor Name</option>
+                      @for (v of vendors; track v) {
+                        <option [value]="v">{{ v }}</option>
+                      }
+                    </select>
+                    <ion-icon name="caret-down-outline" class="select-icon"></ion-icon>
+                  </div>
+                  @if(materialForm.get('vendor')?.touched){
+                    <div class="error">
+                      @if (materialForm.get('vendor')?.errors?.['required']) {
+                        <small>Vendor Name is required</small>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label class="form-label">Invoice Date</label>
+                <div class="input-wrapper">
+                  <input type="date" class="form-control" formControlName="invoiceDate" />
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <!-- Comment -->
+          <ion-row>
+            <ion-col size="12" size-md="6" >
+              <div class="form-group">
+                <label class="form-label">Comment</label>
+                <div class="input-wrapper">
+                  <textarea class="form-control" formControlName="comment" placeholder="Comment"></textarea>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <!-- Add Item + Search -->
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <div class="d-flex flex-wrap gap-4 align-items-center">
+                <button type="button" class="btn table-button buttons" (click)="add()">Add Item</button>
+                <ion-searchbar formControlName="item" placeholder="Type item name..." class="searchbar-custom"></ion-searchbar>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm mt-4">
+            <thead>
+              <tr>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Current Stock</th>
+                <th>Purchase Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>UOM</th>
+                <th>MRP</th>
+                <th>Min Stock</th>
+                <th>Warranty Period</th>
+                <th>Location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of productList; let i = index">
+              
+                <td>{{item.code}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.curStock}}</td>
+                <td>{{item.purchasePrice}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.total}}</td>
+                <td>{{item.uom}}</td>
+                <td>{{item.mrp}}</td>
+                <td>{{item.minStock}}</td>
+                <td>{{item.warPeriod}}</td>
+                <td>{{item.location}}</td>
+                <td data-label="Action" class="text-center">
+                  <ion-icon name="create-outline" class="action-icon edit-icon" (click)="editProduct(i)"></ion-icon>
+                  <ion-icon name="trash-outline" class="action-icon delete-icon ms-2" (click)="deleteProduct(i)"></ion-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottom Buttons -->
+        <ion-row class="my-5">
+          <ion-col size="12" size-md="8">
+            <div class="d-flex flex-wrap gap-2">
+              <button type="submit" class="btn table-button" [disabled]="materialForm.invalid">Submit</button>
+              <button type="button" class="btn table-button" (click)="resetForm()">Reset</button>
+              <button type="button" class="btn table-button" (click)="scanBarcode()">Generate Bar Code</button>
+            </div>
+          </ion-col>
+
+          <ion-col size="12" size-md="4" class="text-md-end text-center mt-2 mt-md-0">
+            <p class="mb-3">
               Grand Total
               <button type="button" class="btn total-button">Total</button>
             </p>
-            <button
-              type="button"
-              class="btn table-button"
-              (click)="scanBarcode()"
-            >
-              Generate Bar Code
-            </button>
-          </div>
-        </div>
+          </ion-col>
+        </ion-row>
       </form>
     </div>
   </div>

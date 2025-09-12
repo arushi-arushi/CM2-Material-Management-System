@@ -1,0 +1,80 @@
+.layout-container {
+  display: flex;
+  flex-direction: row;
+   width: 100%;
+}
+app-sidebar {
+  flex-shrink: 0;
+}
+/* Main content adjusts when sidebar opens */
+.main-content {
+  flex: 1;
+   ion-row{
+       column-gap: 36px; /* horizontal gap between columns */
+  // row-gap: 16px;    /* vertical gap between rows */
+    }
+.main-content.shifted {
+  margin-left: 15px; /* same width as sidebar in HeaderPage */
+} 
+  .form-group {
+    display: flex;
+    // flex-direction: wrap;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    // gap: 5px;
+   
+    label {
+      width: 80px; /* fixed width for labels */
+    }
+    .item{
+      width: 91%;
+    }
+      .input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* stack input and error vertically */
+  max-width: 400px;
+}
+    span{
+        color: red;
+    }
+    
+
+    .form-control {
+      flex: 1; /* input expands to take remaining space */
+      border-radius: 0px;
+      max-width: 400px;
+      font-size: 10px;
+      border:1px solid black;
+      cursor: pointer;
+    }
+    .form-control:hover{
+      background-color: rgb(217, 213, 213);
+    }
+   
+  }
+    .table-button {
+    border-radius: 0;
+    background-color: #e1c068;
+    text-align: center;
+    margin-right: 25px;
+    height: 26px;
+    line-height: 1px;
+    width: 150px;
+    border: 1px solid black;
+  }
+   @media (max-width:768px){
+      .item{
+        width: 85%;
+      }
+      .form-control{
+        max-width: 200px;
+      }
+      .reset{
+        margin-left: 79px;
+      }
+      .table-button{
+        margin-right: 12px;
+      }
+    }
+}

@@ -1,0 +1,29 @@
+<ion-header>
+  <app-header [showCloseIcon]="true" [showUserIcon]="false" (close)="goBack()"></app-header>
+</ion-header>
+<ion-content>
+  <div class="layout-container">
+    <app-sidebar  (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <!-- Main Content -->
+    <div class="main-content" [class.shifted]="sidebarOpen">
+      <table class="table table-bordered table-sm mt-5 overflow-auto">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Current Stock</th>
+              <th>Purchase Price</th>
+              <th>MRP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productList; let i = index">
+              <td>{{ item.name }}</td>
+              <td>{{item.curStock}}</td>
+              <td>{{ item.purchasePrice }}</td>
+              <td>{{ item.mrp}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      </ion-content>

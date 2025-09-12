@@ -1,117 +1,163 @@
-
 .layout-container {
   display: flex;
   flex-direction: row;
-   width: 100%;
-}
+  width: 100%;
+
+
 app-sidebar {
   flex-shrink: 0;
 }
-/* Main content adjusts when sidebar opens */
+
 .main-content {
-  flex: 1;
-padding: 15px 40px;
-  margin-left: 0; /* full width by default */
-  transition: margin-left 0.3s ease;
-}
+  margin-left: 0;
 
-.main-content.shifted {
-  margin-left: 15px; /* same width as sidebar in HeaderPage */
-}
-
-/* Table styling */
-.table {
-  font-size: 0.85rem;
-  border: 1px solid #B9B9B9;
-  margin-bottom: 100px;
-thead th {
-  background-color:  #e1c068;
-}
-
-}
-.table-button {
-border-radius: 0;
-  background-color:  #e1c068;
- text-align: center;
-  margin-right: 25px;
-  height: 30px;
-  width: 150px;
-  line-height: 2px;
-  border: 1px solid black;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5) ;
-  font-size: small;
-}
-.total-button{
-  border-radius: 0;
-  background-color:  #B9B9B9;
- text-align: center;
-  margin-right: 25px;
-  height: 30px;
-  width: 350px;
-  line-height: 2px;
-    border: 1px solid black;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5) ;
-  font-size: small;
-}
-.action-icon {
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.edit-icon {
-  color: #007bff; /* Blue for edit */
-}
-
-.delete-icon {
-  color: #dc3545; /* Red for delete */
-}
-
-.action-icon:hover {
-  transform: scale(1.2);
-}
-.form-group{
-  display: flex;
-  // flex-direction: wrap;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  
-  label {
-    width: 150px;   /* fixed width for labels */
-    margin-right: 10px;
-    font-weight: 500;
+  &.shifted {
+    margin-left: 15px;
   }
-  .input-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* stack input and error vertically */
-  max-width: 600px;
+.custom-gap{
+  gap:12px;
 }
-   span{
-    color: red;
-   }
-  .form-control {
-    flex: 1;       /* input expands to take remaining space */
-    border-radius: 0px;
-    box-shadow:2px 2px 2px rgba(0, 0, 0, 0.2); 
-     max-width: 600px;
-    font-size: small;
-    color: grey;
-  }
-  .form-control:hover{
-   background-color: rgb(217, 213, 213);
-  }
-  .item{
-    margin-left: 153px;
-    max-width: 615px;
-    
-  }
-.error {
-    
-  margin-top: 4px;
-      small {
+  /* ===== Form Styling ===== */
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .form-label {
+      width: 120px;
+      font-weight: 500;
+      margin: 0;
+      span {
         color: red;
-        font-size: 12px;
       }
     }
+
+    .input-wrapper {
+      flex: 1;
+
+      .form-control {
+        width: 100%;
+        border: 1px solid #000;
+        border-radius: 0px;
+        padding: 6px 4px;
+        font-size: 10px;
+      }
+
+      
+    }
+    
+  }
+  @media (max-width: 768px) {
+    .custom-gap{
+      gap:0px;
+    }
+    .form-group {
+      // flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .form-label {
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .input-wrapper {
+      width:  100%;
+    }
+
+    .form-control {
+      width: 100%;
+    }
+    .buttons{
+      margin-left: 0px;
+    }
+  }
+  /* ===== Custom Select with Icon ===== */
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+
+    select {
+      appearance: none;
+      padding: 6px 8px;
+      padding-right: 30px;
+      height: 26px; /* make it same height as input */
+    }
+
+    .select-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 14px;
+      color: #555;
+    }
+  }
+
+  
+  /* Buttons + Search */
+  .searchbar-custom {
+    flex: 1;
+    min-width: 200px;
+    height: 26px;
+    font-size: 10px;
+  }
+
+
+  /* ===== Table Styling ===== */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+      -ms-overflow-style: none;
+  }
+    .table-responsive::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  -webkit-overflow-scrolling: touch;
+}
+    .table {
+       min-width: 1200px; /* ensures horizontal scroll on smaller screens */
+  border-collapse: collapse;
+  font-size: 14px;
+  width: 100%;
+
+    }
+
+    .table thead th {
+      background: #e1c068;
+      font-weight: 500;
+      text-align: left;
+      padding: 8px;
+    }
+
+    .table td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+     .table-button {
+    border-radius: 0px;
+    background-color: #e1c068;
+    text-align: center;
+    height: 26px;
+    line-height: 1px;
+    border: 1px solid black;
+    font-weight: 500;
+  }
+
+  .total-button {
+    border-radius: 0px;
+    background-color: #b9b9b9;
+    height: 26px;
+    line-height: 1px;
+    border: 1px solid black;
+    font-weight: 500;
+    min-width: 200px;   /* ensure it’s always visible */
+  width: auto;     
+  }
+.buttons{
+margin-left: 120px;
+}
+  
+  
+}
 }

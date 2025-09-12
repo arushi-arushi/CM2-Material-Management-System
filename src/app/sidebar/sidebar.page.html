@@ -1,32 +1,47 @@
 
-  <!-- Sidebar toggle button fixed on the edge -->
-  <div class="toggle-btn fs-4" (click)="sideBar()">
-    <ion-icon [name]="sidebarOpen ? 'caret-back' : 'caret-forward'"></ion-icon>
-  </div>
-
+  <button  class="toggle-btn ms-1 fs-4" (click)="sideBar()">
+     <ion-icon slot="start" name="menu-outline"></ion-icon>
+  </button>  
   <!-- Main container -->
   <div class="main-container">
     <!-- Sidebar -->
-    <div class="sidebar" [class.open]="sidebarOpen">
-      <h5 class="menu-title" (click)="sideBar()">Dashboard</h5>
-
-      <!-- Setup with toggle -->
-      <div class="menu-item" (click)="toggleSetup()">
-        <ion-icon slot="start" [name]="showSetup ? 'caret-back' : 'caret-forward'" color="secondary"></ion-icon>
+    <div class="sidebar setup-items pt-5" [class.open]="sidebarOpen">
+     <!-- Setup with toggle -->
+      <div class="menu-title ps-4 pt-3" (click)="dashboard()">
+        <span class="menu-label ps-2">DashBoard</span>
+      </div>
+      <div class="menu-title ps-2" (click)="toggleSetup()">
+         <ion-icon class="side-icon" slot="start" [name]="showSetup ? 'caret-back' : 'caret-forward'" color="dark"></ion-icon>
         <span class="menu-label ps-2">Setup</span>
       </div>
 
       <!-- Nested setup items -->
        @if(showSetup){
-      <div class="setup-items" >
-        <ion-item lines="none">User</ion-item>
-        <ion-item lines="none">Security Group</ion-item>
+      <div class="ms-5" >
+        <div class="mb-3 ms-1 menu-title" (click)="user()">User</div>
+        <div class="mb-3 ms-1 menu-title">Security Group</div>
+        <div class="mb-3 ms-1 menu-title" (click)="userType()">User Type</div>
        </div>
     }
-      <ion-item lines="none">Stock Entry</ion-item>
-      <ion-item lines="none">Sale</ion-item>
-      <ion-item lines="none">Report</ion-item>
-      <ion-item lines="none">Accounting</ion-item>
-      <ion-item lines="none">User Manual</ion-item>
-      <ion-item lines="none">About CM2</ion-item>
+    <div class="menu-title ps-4" (click)="stockEntry()">
+        <span class="menu-label ps-2">Stock Entry</span>
+      </div>
+      <div class="menu-title ps-4" (click)="sale()">
+        <span class="menu-label ps-2">Sale</span>
+      </div>
+      <div class="menu-title ps-2" (click)="report()">
+         <ion-icon class="side-icon" slot="start" name="caret-forward" color="dark"></ion-icon>
+        <span class="menu-label ps-2">Report</span>
+      </div>
+      <div class="menu-title ps-4">
+        <span class="menu-label ps-2">Accounting</span>
+      </div>
+      <div class="menu-title ps-4">
+        <span class="menu-label ps-2">User Manual</span>
+      </div>
+      <div class="menu-title ps-4">
+        <span class="menu-label ps-2">About CM2</span>
+      </div>
     </div>
+
+  

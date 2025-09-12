@@ -1,0 +1,18 @@
+
+.layout-container {
+  display: flex;
+  flex-direction: row;
+   width: 100%;
+
+app-sidebar {
+  flex-shrink: 0;
+}
+/* Main content adjusts when sidebar opens */
+.main-content {
+
+.main-content.shifted {
+  margin-left: 15px; /* same width as sidebar in HeaderPage */
+}
+
+}
+}

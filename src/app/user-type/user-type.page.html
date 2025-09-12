@@ -1,0 +1,70 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+<ion-content>
+  <div class="layout-container">
+    <app-sidebar header="User Detail" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+     <div class="main-content" [class.shifted]="sidebarOpen">
+      <div class="d-flex justify-content-center">
+        <p class="fs-5 fw-b">User Form</p>
+      </div>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="form">
+          <div class="form-group">
+          <ion-searchbar
+            formControlName="items"
+            placeholder="Type User name i.e. Admin"
+            class="item"
+          >
+          </ion-searchbar>
+        </div> 
+        <ion-row>
+        <ion-col  size="12" size-md="3">
+      <div class="form-group">
+        <label for="name">User Type</label>
+        <div class="input-wrapper">
+        <input type="text" class="form-control" formControlName="name" placeholder="User Type"/>
+           @if((userForm.get('name')?.touched||userForm.get('name')?.dirty )&& userForm.get('name')?.invalid){
+            <div class="error">
+              @if (userForm.get('name')?.errors?.['required']) {
+        <small>User Type is required</small>
+      }
+       @if (userForm.get('name')?.errors?.['minlength']) {
+        <small>User Type must be aleast 3 characters long.</small>
+      }
+        @if (userForm.get('name')?.errors?.['pattern']) {
+        <small>User Type  can only contain letters and spaces.</small>
+      }
+      </div>
+    }
+    </div>
+    </div>
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col size="12" size-md="3">
+      <div class="form-group">
+        <label for="password">User Type Description</label>
+        <div class="input-wrapper">
+        <input type="password" class="form-control" formControlName="password" placeholder="Description"/>
+  </div>
+      </div>
+      </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+      <div class="form-group">
+          <label for="active">Active</label>
+          <ion-checkbox formControlName="active"></ion-checkbox>
+      </div>
+      </ion-col>
+      </ion-row>
+       <div class="d-flex justify-content-between align-items-center mt-2">
+            <button type="submit" class="btn table-button" [disabled]="userForm.invalid">Submit</button>
+            </div>
+        </div>
+      </form>
+     </div>
+    </div>
+    </ion-content>
+    

@@ -6,19 +6,17 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { SidebarPage } from "../sidebar/sidebar.page";
 
 @Component({
-  selector: 'app-stock-entry',
-  templateUrl: './stock-entry.page.html',
-  styleUrls: ['./stock-entry.page.scss'],
+  selector: 'app-sale-return',
+  templateUrl: './sale-return.page.html',
+  styleUrls: ['./sale-return.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, HeaderPage, SidebarPage, ReactiveFormsModule, SidebarPage],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule,HeaderPage,SidebarPage]
 })
-export class StockEntryPage implements OnInit {
-  sidebarOpen=false;
+export class SaleReturnPage implements OnInit {
+sidebarOpen=false;
    @ViewChild(SidebarPage) stock!:SidebarPage;
-  materialForm: FormGroup;
-  transType = ['Purchase', 'Item Update', 'Stock Adjustment'];
-   invoiceNos = ['Invoice 1', 'Invoice 2', 'Invoice 3'];
-  vendors = ['Vendor A', 'Vendor B', 'Vendor C'];
+  itemForm: FormGroup;
+  transType = ['New','Return','Defective'];
   productList = [
     {
       code: '123456789123',
@@ -29,22 +27,37 @@ export class StockEntryPage implements OnInit {
       quantity: 10,
       total:10,
       uom: 'Piece',
-      mrp:'10',
+      mrp:'12',
      minStock:'10',
      warPeriod:'2',
      location:'aaa',
      action:'',
     },
+     {
+        code: '',
+      name: '',
+      category: '',
+      curStock:'',
+      purchasePrice: '',
+      quantity: '',
+      total:'',
+      uom: '',
+      mrp:'',
+     minStock:'',
+     warPeriod:'',
+     location:'',
+     action:'',
+    }
   ];
   totalAmount = 0;
 
   constructor(private fb: FormBuilder) {
-    this.materialForm = this.fb.group({
-      transType:['',Validators.required],
-      vendor: ['',Validators.required],
-      invoiceNo: [''],
-      date: [''],
-      comment: [''],
+    this.itemForm = this.fb.group({
+      transType: ['',Validators.required],
+      bill: [''],
+      name: [''],
+      mobile: [''],
+      comment:['']
     });
 
     this.calculateTotal();
@@ -59,10 +72,10 @@ onSidebarToggled(open: boolean) {
   }
 
   calculateTotal() {
-    this.totalAmount = this.productList.reduce(
-      (sum, item) => sum + item.purchasePrice * item.quantity,
-      0
-    );
+    // this.totalAmount = this.productList.reduce(
+    //   (sum, item) => sum + item.purchasePrice * item.quantity,
+    //   0
+    // );
   }
 editProduct(index: number) {
   console.log('Edit product:', this.productList[index]);
@@ -73,15 +86,13 @@ deleteProduct(index: number) {
   this.productList.splice(index, 1);
   this.calculateTotal();
 }
-add(){
-  
-}
+
   onSubmit() {
-    console.log('Form submitted:', this.materialForm.value);
+    console.log('Form submitted:', this.itemForm.value);
   }
 
   resetForm() {
-    this.materialForm.reset();
+    this.itemForm.reset();
   }
 
   scanBarcode() {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule,PopoverController } from '@ionic/angular';
 import { HeaderPage } from '../header/header.page';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from "@angular/forms";
 import {  Router } from '@angular/router';
@@ -15,7 +15,7 @@ import {  Router } from '@angular/router';
 
 export class ResetPasswordPage implements OnInit {
 resetPassword:FormGroup;
-  constructor(private fb:FormBuilder,private route:Router) {
+  constructor(private fb:FormBuilder,private route:Router,private popoverController:PopoverController) {
       this.resetPassword=this.fb.group({
           name:['',[Validators.required]],
           password:['',[Validators.required,Validators.minLength(6)]],
@@ -34,6 +34,7 @@ resetPassword:FormGroup;
       ? { mismatch: true }
       : null;
   }
+
 submit(){
  if (this.resetPassword.valid) {
      this.route.navigate(['/user']);
@@ -41,5 +42,12 @@ submit(){
 }
 cancel(){
 this.resetPassword.reset();
+// this.route.navigate(['/user']);
+this.popoverController.dismiss();
+}
+  goBack(){
+// this.route.navigate(['/user']);
+console.log('out');
+this.popoverController.dismiss();
 }
 }

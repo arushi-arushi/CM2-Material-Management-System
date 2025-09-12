@@ -1,0 +1,10 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+<ion-content>
+  <div class="layout-container">
+    <app-sidebar header="User Detail" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+     <div class="main-content" [class.shifted]="sidebarOpen">
+      </div>
+      </div>
+      </ion-content>

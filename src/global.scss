@@ -34,4 +34,105 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+:root {
+  // font-family: Georgia, serif;
+  font-family: system-ui;
+  font-size: 13px; // font-family: sans-serif;
+
+  .main-content {
+    flex: 1;
+      padding: 1.3rem 40px;
+    margin-left: 0; /* full width by default */
+    transition: margin-left 0.3s ease;
+     ion-row{
+       column-gap: 36px; /* horizontal gap between columns */
+  row-gap: 0px;    /* vertical gap between rows */
+    }
+    .para{
+  // border: 1px solid #e1c068;
+  background-color: #e1c068;
+   height: 25px;
+   line-height: 23px;
+  
+
+   @media (max-width:768px) {
+    margin-left: 10px;
+   }
+}
+    .heading{
+      font-weight: 700;
+    }
+    .table {
+      border: 1px solid #b9b9b9;
+      margin-bottom: 100px;
+      // display: flex;
+      // flex-direction: wrap;
+      thead th {
+        background-color: #e1c068;
+      }
+       .actionHead{
+        text-align: center;
+        // align-items: center;
+      }
+      .action-icon {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+    }
+  .edit-icon {
+    color: #007bff;
+  }
+
+  .delete-icon {
+    color: #dc3545;
+  }
+
+  .action-icon:hover {
+    transform: scale(1.2);
+  }
+  @media (max-width:609px) {
+    padding: 1.3rem 30px;
+    
+  }
+  
+  @media (max-width:450px) {
+    padding: 1rem 30px;
+  }
+  
+    }
+   
+    .error {
+      margin-top: 4px;
+      small {
+        color: red;
+        font-size: 12px;
+      }
+    }
+   .table-button {
+    border-radius: 0;
+    background-color: #e1c068;
+    text-align: center;
+    // margin-right: 25px;
+    height: 26px;
+    line-height: 1px;
+    width:150px;
+    border: 1px solid black;
+    font-weight: 500;
+  }
+  .active{
+    border: 1px solid black;
+    border-radius: 2px;
+  }
+  }
+.custom-popover {
+  --transform-origin: center center;
+  --width: 420px;        /* desired width */
+  --min-width: 300px;
+  --max-width: 95vw;     /* responsive fallback */
+  --border-radius: 12px;
+}
+.custom-popover .popover-content{
+  padding: 16px;
+}

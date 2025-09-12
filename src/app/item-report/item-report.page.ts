@@ -5,60 +5,57 @@ import { HeaderPage } from '../header/header.page';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SidebarPage } from "../sidebar/sidebar.page";
 @Component({
-  selector: 'app-sale',
-  templateUrl: './sale.page.html',
-  styleUrls: ['./sale.page.scss'],
+  selector: 'app-item-report',
+  templateUrl: './item-report.page.html',
+  styleUrls: ['./item-report.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, HeaderPage, SidebarPage, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule,HeaderPage,SidebarPage]
 })
-export class SalePage implements OnInit {
+export class ItemReportPage implements OnInit {
 sidebarOpen=false;
    @ViewChild(SidebarPage) stock!:SidebarPage;
   itemForm: FormGroup;
-  transType = ['New','Return','Defective'];
+  reportType = ['Stock Report','Item Master'];
   productList = [
     {
-      code: '123456789123',
-      name: 'Anchor Switch 3/4',
-      category: 'Switch',
-      curStock:'10',
-      purchasePrice: 10,
-      quantity: 10,
-      total:10,
-      uom: 'Piece',
-     minStock:'10',
-     warPeriod:'2',
-     location:'aaa',
-     action:'',
+      code: '',
+      name: '',
+      curStock:'',
+      uom: '',
+      category:'',
+     status:'',
+     location:'',
+     threshold:'',
+    quantity: '',
+entryDate:''
     },
     {
-       code: '',
+      code: '',
       name: '',
-      category: '',
       curStock:'',
-      purchasePrice: '',
-      quantity: '',
-      total:'',
       uom: '',
-     minStock:'',
-     warPeriod:'',
+      category:'',
+     status:'',
      location:'',
-     action:'',
+     threshold:'',
+    quantity: '',
+entryDate:''
     }
   ];
   totalAmount = 0;
 
   constructor(private fb: FormBuilder) {
     this.itemForm = this.fb.group({
-      transType: ['',Validators.required],
-      bill: [''],
-      name: [''],
-      mobile: [''],
-      comment:['']
+      reportType: ['',Validators.required],
+      count:[''],
+      transFromDate:[''],
+      transToDate:[''],
+      category:[''],
+      itemName:[''],
     });
 
-    this.calculateTotal();
   }
+
 
   ngOnInit() {}
 onSidebarToggled(open: boolean) {
@@ -68,20 +65,14 @@ onSidebarToggled(open: boolean) {
     console.log('Product added:', this.productList[index]);
   }
 
-  calculateTotal() {
-    // this.totalAmount = this.productList.reduce(
-    //   (sum, item) => sum + item.purchasePrice * item.quantity,
-    //   0
-    // );
-  }
+  
 editProduct(index: number) {
   console.log('Edit product:', this.productList[index]);
   // Example: this.materialForm.patchValue(this.productList[index]);
 }
 
-deleteProduct(index: number) {
-  this.productList.splice(index, 1);
-  this.calculateTotal();
+deleteProduct(){
+
 }
 
   onSubmit() {
@@ -95,6 +86,6 @@ deleteProduct(index: number) {
   scanBarcode() {
     console.log('Scan initiated');
   }
+
+
 }
-
-

@@ -3,11 +3,14 @@
 </ion-header>
 <ion-content>
   <div class="layout-container">
-    <app-sidebar (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <app-sidebar header="User Detail" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
      <div class="main-content" [class.shifted]="sidebarOpen">
+      <div class="d-flex justify-content-start para">
+        <p class=" ms-2 fs-6 heading">User Master</p>
+      </div>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="form">
-          <div class="form-group">
+          <div class="form-group my-3">
           <ion-searchbar
             formControlName="items"
             placeholder="Type User name i.e. CD"
@@ -16,7 +19,7 @@
           </ion-searchbar>
         </div> 
         <ion-row>
-        <ion-col>
+        <ion-col  size="12" size-md="3">
       <div class="form-group">
         <label for="name">User Name</label>
         <div class="input-wrapper">
@@ -37,18 +40,19 @@
     </div>
     </div>
           </ion-col>
-           
-          <ion-col>
-           
+          <ion-col size="12" size-md="3">  
       <div class="form-group">
           <label for="role">User Role</label>
            <div class="input-wrapper">
+            <div class="select-wrapper">
           <select class="form-control" formControlName="role">
             <option value="" disabled selected>User Role</option>
             @for (r of role; track r) {
             <option [value]="r">{{ r }}</option>
             }
           </select>
+          <ion-icon name="caret-down-outline" class="select-icon"></ion-icon>
+          </div>
        @if(userForm.get('role')?.touched){
             <div class="error">
               @if (userForm.get('role')?.errors?.['required']) {
@@ -60,8 +64,8 @@
       </div>
         </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>
+        <ion-row >
+          <ion-col size="12" size-md="3">
       <div class="form-group">
         <label for="password">Password</label>
         <div class="input-wrapper">
@@ -79,23 +83,24 @@
   </div>
       </div>
       </ion-col>
-      <ion-col>
-      <div class="form-group">
-       <button type="button"  class="btn table-button" (click)="reset()">Reset</button>
-      </div>
-      </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-      <div class="form-group">
+      <ion-col size="12" size-md="3">
+       <div class="form-group">
           <label for="active">Active</label>
-          <ion-checkbox formControlName="active"></ion-checkbox>
+          <ion-checkbox formControlName="active" class="active"></ion-checkbox>
       </div>
       </ion-col>
       </ion-row>
-       <div class="d-flex justify-content-between align-items-center mt-5">
-          <div class="d-flex ">
-            <button type="submit" class="btn table-button" [disabled]="userForm.invalid">Submit</button>
+
+       <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap-column">
+          <div class="d-flex">
+            <button type="submit" class="btn table-button submitButton" [disabled]="userForm.invalid">Submit</button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="resetButton($event)"
+            >
+            Password Reset
+            </button>
             <button
               type="button"
               class="btn table-button"
@@ -103,10 +108,48 @@
             >
             Delete
             </button>
-            </div>
+          </div>
             </div>
         </div>
       </form>
-     </div>
+     
+      <div class="table-container">
+        <table class="table table-bordered table-sm mt-5">
+          <thead>
+            <tr>
+                <th>Category</th>
+              <th>User Name</th>
+               <th>Active</th>
+              <th class="actionHead">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of userList; let i = index">
+             <td>{{ item.category }}</td>
+              <td>{{ item.userName }}</td>
+              <td>{{item.active}}</td>
+              <td class="text-center">
+                <!-- Edit Icon -->
+                <ion-icon
+                  name="create-outline"
+                  class="action-icon edit-icon"
+                  (click)="editProduct()"
+                >
+                </ion-icon>
+
+                <!-- Delete Icon -->
+                <ion-icon
+                  name="trash-outline"
+                  class="action-icon delete-icon ms-2"
+                  (click)="deleteProduct()"
+                >
+                </ion-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        </div>
     </div>
     </ion-content>
+    
