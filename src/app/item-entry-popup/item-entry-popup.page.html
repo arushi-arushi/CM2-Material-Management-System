@@ -1,96 +1,292 @@
 <ion-header>
-  <app-header></app-header>
+  <app-header [showCloseIcon]="true" [showUserIcon]="false" (close)="goBack()"></app-header>
 </ion-header>
 <ion-content>
+  <div class="layout-container">
   <div class="main-content">
-    <form [formGroup]="itemEntry" (ngSubmit)="onSubmit()">
-      <ion-row>
-        <ion-col>
+      <div class="d-flex justify-content-start para">
+        <p class="ms-2 fs-6 heading">Stock Entry</p>
+      </div>
+       <form [formGroup]="itemEntry" (ngSubmit)="onSubmit()">
+        <div class="form">
+        <ion-row>
+        <ion-col size="12" size-md="5">
       <div class="form-group">
-        <label for="bar">Product BarCode</label>
-        <input type="text" class="form-control" formControlName="bar" placeholder="Bar Code"/>
+         <label name="itemCode" class="labels">Item Code <span>*</span> </label>
+         <div class="select-container">
+          <div class="input-container">
+        <input type="text" class="form-control" formControlName="bar" placeholder="Item Code"/>
+        @if(itemEntry.get('name')?.touched){
+                  <div class="error">
+                    @if (itemEntry.get('name')?.errors?.['required']) {
+                    <small>User Name is required</small>
+                    }
+                  </div>
+                  }
+          </div>
+          </div>
           </div>
           </ion-col>
-          <ion-col>
+          <ion-col size="12" size-md="5">
       <div class="form-group">
-          <label for="category">Category</label>
-          <select class="form-control" formControlName="category">
-            <option value="" disabled selected>Category</option>
-            @for (z of category; track z) {
-            <option [value]="z">{{ z }}</option>
-            }
-          </select>
-        </div> <span>*</span>
-        </ion-col>
+        <label name="curStock">Current Stock</label>
+         <div class="select-container">
+                  <div class="input-wrapper">
+        <input type="number" class="form-control" formControlName="curStock" placeholder="Current Stock"/>
+      </div>
+      </div>
+    </div>
+      </ion-col>
       </ion-row>
         <ion-row>
-          <ion-col>
+          <ion-col size="12" size-md="5">
       <div class="form-group">
-        <label for="name">Product Name <span>*</span></label>
-        <input type="text" class="form-control" formControlName="name" placeholder="Product Name"/>
+        <label name="itemName" class="labels">Item Name <span>*</span></label>
+         <div class="select-container">
+                  <div class="input-wrapper">
+        <input type="text" class="form-control" formControlName="itemName" placeholder="Item Name"/>
+         @if((itemEntry.get('name')?.touched||itemEntry.get('name')?.dirty
+                  )&& itemEntry.get('name')?.invalid){
+                  <div class="error">
+                    @if (itemEntry.get('name')?.errors?.['required']) {
+                    <small> Item Name is required</small>
+                    } @if (itemEntry.get('name')?.errors?.['minlength']) {
+                    <small> Item Name must be aleast 3 characters long.</small>
+                    } @if (itemEntry.get('name')?.errors?.['pattern']) {
+                    <small
+                      >Item Name can only contain letters and spaces.</small
+                    >
+                    }
+                  </div>
+                  }
       </div>
+      </div>
+    </div>
       </ion-col>
-      <ion-col>
+      <ion-col size="12" size-md="5">
+              <div class="form-group">
+                <label name="category" 
+                  >Category <span>*</span></label
+                >
+                <div class="select-container">
+                  <div class="input-wrapper">
+                    <div class="select-wrapper">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="category"
+                        id="categoryInput"
+                        placeholder="Category"
+                        (focus)="onFocus('category')"
+                        (blur)="onBlur('category')"
+                        autocomplete="off"
+                      />
+                      <ion-icon
+                        name="caret-down-outline"
+                        class="select-icon"
+                      ></ion-icon>
+                    </div>
+                     @if(itemEntry.get('category')?.touched){
+                    <div class="error">
+                      @if (itemEntry.get('category')?.errors?.['required']) {
+                      <small>Category is required</small>
+                      }
+                      @if(itemEntry.get('category')?.errors?.['invalidOption'])
+                      {
+                      <small>Please select a valid Category from list</small>
+                      }
+                    </div>
+                    }
+                  </div>
+                  @if(showDropdown['category']){
+                  <div class="dropdown bootstrap-autocomplete-list">
+                    @for (n of filtered['category']; track n) {
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      (mousedown)="onSelect('category',n)"
+                    >
+                      {{n}}
+                    </button>
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-md="5">
       <div class="form-group">
-        <label for="bar">stock</label>
-        <input type="text" class="form-control" formControlName="stock" placeholder="Min Stock"/>
+        <label name="purchasePrice" class="labels">Purchase Price <span>*</span></label>
+         <div class="select-container">
+                  <div class="input-wrapper">
+        <input type="number" class="form-control" formControlName="purchasePrice" placeholder="Purchase Price"/>
+         @if(itemEntry.get('purchasePrice')?.touched){
+                  <div class="error">
+                    @if (itemEntry.get('purchasePrice')?.errors?.['required']) {
+                    <small>Purchase Price is required</small>
+                    }
+                  </div>
+                  }
       </div>
+      </div>
+    </div>
+      </ion-col>
+      <ion-col size="12" size-md="5">
+      <div class="form-group">
+        <label name="minStock">Min Stock</label>
+         <div class="select-container">
+                  <div class="input-wrapper">
+        <input type="number" class="form-control" formControlName="minStock" placeholder="Min Stock"/>
+      </div>
+      </div>
+    </div>
       </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
-      <div class="form-group">
-        <label for="purchasePrice">Purchase Price <span>*</span></label>
-        <input type="text" class="form-control" formControlName="purchasePrice" placeholder="Purchase Price"/>
-      </div>
-      </ion-col>
-      <ion-col>
+          <ion-col size="12" size-md="5">
+              <div class="form-group">
+                <label for="parentUom" class="labels"
+                  >UOM <span>*</span></label
+                >
+                <div class="select-container">
+                  <div class="input-wrapper">
+                    <div class="select-wrapper">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="parentUom"
+                        id="parentUomInput"
+                        placeholder="UOM"
+                        (focus)="onFocus('parentUom')"
+                        (blur)="onBlur('parentUom')"
+                        autocomplete="off"
+                      />
+                      <ion-icon
+                        name="caret-down-outline"
+                        class="select-icon"
+                      ></ion-icon>
+                    </div>
+                     @if(itemEntry.get('parentUom')?.touched){
+                    <div class="error">
+                      @if (itemEntry.get('parentUom')?.errors?.['required']) {
+                      <small>UOM is required</small>
+                      }
+                      @if(itemEntry.get('parentUom')?.errors?.['invalidOption'])
+                      {
+                      <small>Please select a valid UOM from list</small>
+                      }
+                    </div>
+                    }
+                  </div>
+                  @if(showDropdown['parentUom']){
+                  <div class="dropdown bootstrap-autocomplete-list">
+                    @for (n of filtered['parentUom']; track n) {
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      (mousedown)="onSelect('parentUom',n)"
+                    >
+                      {{n}}
+                    </button>
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+      <ion-col size="12" size-md="5">
       <div class="form-group">
         <label for="period">Warranty Period</label>
+         <div class="select-container">
+                  <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="period" placeholder="Warranty Period"/>
       </div>
+      </div>
+    </div>
       </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
+        <ion-col size="12" size-md="5">
       <div class="form-group">
-        <label for="sellingPrice">Selling Price <span>*</span></label>
-        <input type="text" class="form-control" formControlName="sellingPrice" placeholder="Selling Price"/>
+        <label name="mrp" class="labels">MRP <span>*</span></label>
+         <div class="select-container">
+                  <div class="input-wrapper">
+        <input type="text" class="form-control" formControlName="mrp" placeholder="MRP"/>
 </div>
+</div>
+</div>
+</ion-col>
+  <ion-col size="12" size-md="5">
+      <div class="form-group">
+        <label name="loc">Location <span>*</span></label>
+         <div class="select-container">
+                  <div class="input-wrapper">
+        <input type="text" class="form-control" formControlName="loc" placeholder="Location"/>
+</div>
+</div>
+</div>
+</ion-col>
+</ion-row>
+<ion-row>
+<ion-col size="12" size-md="5">
          <div class="form-group">
-        <label for="qty">Quantity <span>*</span></label>
+        <label name="qty" class="labels">Quantity <span>*</span></label>
+         <div class="select-container">
+                  <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="qty" placeholder="Quantity"/>
       </div>
+      </div>
+    </div>
       </ion-col>
-      <ion-col>
-        <div class="form-group comments">
-          <label for="comment">Comment</label>
-          <textarea class="form-control" formControlName="comment"></textarea>
+      <ion-col size="12" size-md="5">
+        <div class="form-group">
+          <label name="discount">Discount</label>
+           <div class="select-container">
+                  <div class="input-wrapper">
+          <input class="form-control" formControlName="discount" placeholder="Discount"/>
           </div>
+          </div>
+        </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
-      <div class="form-group">
-         <label for="uom">UOM <span>*</span></label>
-          <select class="form-control" formControlName="uom">
-            <option value="" disabled selected>UOM</option>
-            @for (u of category; track u) {
-            <option [value]="u">{{ u }}</option>
+
+     <div class="d-flex table-container gap-2">
+    <div>
+          <table class="table table-bordered table-sm mt-5 auto-fit-table">
+            <thead>
+              <tr>
+                <th>Child UOM</th>
+                <th>Conversion</th>
+                <th>MRP</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of itemList; track $index) {
+              <tr>
+                <td>{{item.childUOM}}</td>
+                <td>{{item.conversion}}</td>
+                <td>{{item.mrp}}</td>
+              </tr>
             }
-          </select>
-           </div>
-           </ion-col>
-           <ion-col>
-      <div class="form-group">
-          <label for="addQuantity">Add Qunatity</label>
-          <ion-checkbox></ion-checkbox>
-      </div>
-      </ion-col>
-      </ion-row>
-       <div class="d-flex justify-content-between align-items-center mt-5">
-          <div class="d-flex ">
-            <button type="submit" class="btn table-button ">Submit</button>
+            </tbody>
+          </table>
+        </div>
+          <div class="d-flex add mt-5 gap-2">
+            <button type="button" class="btn add-remove" (click)="addItem()">+</button>
+            <button
+              type="button"
+              class="btn add-remove"
+              (click)="removeItem()"
+            >
+            -
+            </button>
+        </div>
+        </div>
+          <div class="d-flex justify-content-between align-items-center my-5">
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn table-button submitButton " [disabled]="itemEntry.invalid" >Submit</button>
             <button
               type="button"
               class="btn table-button"
@@ -100,7 +296,8 @@
             </button>
             </div>
             </div>
+          </div>
     </form>
-    
+  </div>
   </div>
 </ion-content>

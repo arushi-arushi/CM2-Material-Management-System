@@ -3,197 +3,317 @@
 </ion-header>
 <ion-content>
   <div class="layout-container">
-    <app-sidebar header="Sales Entry" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <app-sidebar (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
     <!-- Main Content -->
     <div class="main-content" [class.shifted]="sidebarOpen">
+      <div class="d-flex justify-content-start para">
+        <p class="ms-2 fs-6 heading">Sale</p>
+      </div>
       <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-        <ion-row >
-          <ion-col size="12" size-md="3" >
-            <div class="form-group">
-              <label for="transType">Transaction Type <span class="spans">*</span></label>
-              <div class="input-wrapper">
-                <select class="form-control" formControlName="transType">
-                  <option value="" disabled selected>Transaction Type</option>
-                  @for (t of transType; track t) {
-                  <option [value]="t">{{ t}}</option>
-                  }
-                </select>
-                @if(itemForm.get('transType')?.touched){
-                <div class="error">
-                  @if (itemForm.get('transType')?.errors?.['required']) {
-                  <small>Transaction Type is required</small> }
+        <div class="form mb-2">
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <div class="d-flex">
+                <div class="form-group">
+                  <label name="transType" class="labels"
+                    >Transaction Type <span>*</span></label
+                  >
+                  <div class="select-container sale-container">
+                    <div class="input-wrapper saleTrans">
+                      <div class="select-wrapper sale-wrapper">
+                        <input
+                          type="text"
+                          class="form-control sale-control"
+                          formControlName="transType"
+                          id="transInput"
+                          placeholder="Transaction Type"
+                          (focus)="onFocus('transType')"
+                          (blur)="onBlur('transType')"
+                          autocomplete="off"
+                        />
+                        <ion-icon
+                          name="caret-down-outline"
+                          class="select-icon"
+                        ></ion-icon>
+                      </div>
+                      @if(itemForm.get('transType')?.touched){
+                      <div class="error">
+                        @if (itemForm.get('transType')?.errors?.['required']) {
+                        <small>Transaction Type is required</small>
+                        }
+                        @if(itemForm.get('transType')?.errors?.['invalidOption'])
+                        {
+                        <small
+                          >Please select a valid transaction type from
+                          list</small
+                        >
+                        }
+                      </div>
+                      }
+                    </div>
+                    @if(showDropdown['transType']){
+                    <div class="dropdown bootstrap-autocomplete-list">
+                      @for (t of filtered['transType']; track t) {
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        (mousedown)="onSelect('transType',t)"
+                      >
+                        {{t}}
+                      </button>
+                      }
+                    </div>
+                    }
+                  </div>
                 </div>
-                }
+
+                <div>
+                  <div class="form-group">
+                    <ion-checkbox
+                      formControlName="similar"
+                      class="active me-2"
+                    ></ion-checkbox>
+                    <label name="similar" class="simLabel">Similar Item</label>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="4">
+              <div class="d-flex">
+                <div class="form-group">
+                  <label name="bill">Bill No</label>
+                  <div class="select-container sale-container">
+                    <div class="input-wrapper saleTrans">
+                      <div class="select-wrapper sale-wrapper">
+                        <input
+                          type="text"
+                          class="form-control sale-control"
+                          formControlName="bill"
+                          id="billNoInput"
+                          placeholder="Bill No"
+                          (focus)="onFocus('bill')"
+                          (blur)="onBlur('bill')"
+                          autocomplete="off"
+                        />
+                        <ion-icon
+                          name="caret-down-outline"
+                          class="select-icon"
+                        ></ion-icon>
+                      </div>
+                      @if(itemForm.get('bill')?.touched){
+                      <div class="error">
+                        @if (itemForm.get('bill')?.errors?.['required']) {
+                        <small>Invoice No. is required</small>
+                        } @if(itemForm.get('bill')?.errors?.['invalidOption']) {
+                        <small>Please select a valid Bill No. from list</small>
+                        }
+                      </div>
+                      }
+                    </div>
+                    @if(showDropdown['bill']){
+                    <div class="dropdown bootstrap-autocomplete-list">
+                      @for (t of filtered['bill']; track t) {
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        (mousedown)="onSelect('bill',t)"
+                      >
+                        {{t}}
+                      </button>
+                      }
+                    </div>
+                    }
+                  </div>
+                </div>
+                <div class="d-flex bill-button gap-1">
+                  <button
+                    type="button"
+                    class="btn table-button display-button"
+                    (click)="display()"
+                  >
+                    Display
+                  </button>
+                  <button
+                    type="button"
+                    class="btn table-button display-button"
+                    (click)="print()"
+                  >
+                    Print
+                  </button>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="4">
+              <div class="form-group">
+                <label name="name" class="labels mobile-labels">Customer Name</label>
+                <div class="select-container">
+                  <div class="input-container">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      placeholder="Customer Name"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="4">
+              <div class="form-group">
+                <label name="mobile" class="mobile-labels">Mobile No</label>
+                <div class="select-container">
+                  <div class="input-container mobileLeft">
+                    <input
+                      type="number"
+                      class="form-control"
+                      formControlName="mobile"
+                      placeholder="Mobile No"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <div class="form-group">
+                <ion-searchbar
+                  formControlName="items"
+                  placeholder="Type User name i.e. CD"
+                  class="item"
+                >
+                </ion-searchbar>
+              </div>
+            </ion-col>
+          </ion-row>
+          <div class="table-container">
+            <table class="table table-bordered table-sm mt-4 mb-4 auto-fit-table">
+              <thead>
+                <tr>
+                  <th>Item Code</th>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Current Stock</th>
+                  <th>Purchase Price</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>UOM</th>
+                  <th>MRP</th>
+                  <th>Min Stock</th>
+                  <th>Warranty Period</th>
+                  <th>Location</th>
+                  <th class="actionHead">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of productList; let i = index">
+                  <td>{{item.code}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.category}}</td>
+                  <td>{{item.curStock}}</td>
+                  <td>{{item.purchasePrice}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.total}}</td>
+                  <td>{{item.uom}}</td>
+                  <td>{{item.mrp}}</td>
+                  <td>{{item.minStock}}</td>
+                  <td>{{item.warPeriod}}</td>
+                  <td>{{item.location}}</td>
+                  <td data-label="Action" class="text-center">
+                    <ion-icon
+                      name="create-outline"
+                      class="action-icon edit-icon"
+                      (click)="editProduct(i)"
+                    ></ion-icon>
+                    <ion-icon
+                      name="trash-outline"
+                      class="action-icon delete-icon ms-2"
+                      (click)="deleteProduct(i)"
+                    ></ion-icon>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            <div class="footers d-flex justify-content-end end-button">
+              <p class="total-para">
+                MRP Total
+                <input
+                  type="text"
+                  class="grand-button"
+                  placeholder="Grand Total"
+                />
+              </p>
+            </div>
+            <div class="footers d-flex justify-content-end end-button">
+              <p class="total-para">
+                Discount %
+                <input
+                  type="text"
+                  class="grand-button"
+                  placeholder="Discount"
+                />
+              </p>
+            </div>
+          <div class="footers">
+            <div class="d-flex flex-wrap bottom-button">
+              <button
+                type="submit"
+                class="btn table-button"
+                [disabled]="itemForm.invalid"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                class="btn table-button"
+                (click)="resetForm()"
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                class="btn table-button bar-code"
+                (click)="scanBarcode()"
+              >
+                Generate Bar Code
+              </button>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="grand-total">
+                <p class="total-para">
+                  Total Cost
+                  <input
+                    type="text"
+                    class="grand-button"
+                    placeholder="Purchase Total"
+                  />
+                </p>
+              </div>
+
+              <div class="grand-total">
+                <p class="total-para">
+                  Round off
+                  <input
+                    type="text"
+                    class="grand-button"
+                    placeholder="Round off"
+                  />
+                </p>
+              </div>
+              <div class="grand-total">
+                <p class="total-para">
+                  Final Payable
+                  <input
+                    type="text"
+                    class="grand-button"
+                    placeholder="Grand Total"
+                  />
+                </p>
               </div>
             </div>
-          </ion-col>
-          <ion-col size="12" size-md="3" >
-            <div class="form-group">
-              <label for="bill" class="labels">Bill No</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="invoice"
-                placeholder="Bill No"
-              />
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row >
-          <ion-col size="12" size-md="3" >
-            <div class="form-group">
-              <label for="name">Customer Name</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="name"
-                placeholder="Customer Name"
-              />
-            </div>
-          </ion-col>
-          <ion-col size="12" size-md="3" >
-            <div class="form-group">
-              <label for="mobile" class="labels">Mobile No</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="mobile"
-                placeholder="Mobile No"
-              />
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row >
-          <ion-col size="12" >
-            <div class="form-group">
-              <label for="comment">Comment</label>
-              <textarea
-                class="form-control comment"
-                formControlName="comment"
-                placeholder="Comment"
-              ></textarea>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col >
-            <div class="form-group ">
-              <ion-searchbar
-                formControlName="items"
-                placeholder="Type item name i.e. Wire"
-                class="item"
-              >
-              </ion-searchbar>
-            </div>
-          </ion-col>
-        </ion-row>
-         <div class="table-container">
-        <table class="table table-bordered table-sm mt-5">
-          <thead>
-            <tr>
-              <th>Item Code</th>
-              <th>Item Name</th>
-              <th>Category</th>
-              <th>Current Stock</th>
-              <th>Purchase Price</th>
-              <th>Qty</th>
-              <th>Total</th>
-              <th>UOM</th>
-              <th>Min Stock</th>
-              <th>Warranty Period</th>
-              <th>Location</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of productList; let i = index">
-              <td>{{ item.code }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.category || '-' }}</td>
-              <td>{{item.curStock}}</td>
-              <td>{{ item.purchasePrice }}</td>
-              <td>{{ item.quantity}}</td>
-              <td>{{ item.total }}</td>
-              <td>{{ item.uom }}</td>
-              <td>{{item.minStock}}</td>
-              <td>{{ item.warPeriod }}</td>
-              <td>{{item.location}}</td>
-              <td class="text-center">
-                <!-- Edit Icon -->
-                <ion-icon
-                  name="create-outline"
-                  class="action-icon edit-icon"
-                  (click)="editProduct(i)"
-                >
-                </ion-icon>
-
-                <!-- Delete Icon -->
-                <ion-icon
-                  name="trash-outline"
-                  class="action-icon delete-icon ms-2"
-                  (click)="deleteProduct(i)"
-                >
-                </ion-icon>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-      <div class="totals-section">
-  <ion-row>
-    <ion-col size="12" size-md="3">
-      <div class="total-row">
-        <span>Purchase Price Total</span>
-        <button type="button" class="btn total-button">Purchase Total</button>
-      </div>
-    </ion-col>
-    <ion-col size="12" size-md="3">
-      <div class="total-row">
-        <span>Discount %</span>
-        <button type="button" class="btn total-button">Discount</button>
-      </div>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col size="12" size-md="3">
-      <div class="total-row">
-        <span>Selling Price Total</span>
-        <button type="button" class="btn total-button">Grand Total</button>
-      </div>
-    </ion-col>
-    <ion-col size="12" size-md="3">
-      <div class="total-row">
-        <span>Selling Price After Discount</span>
-        <button type="button" class="btn total-button">Grand Total</button>
-      </div>
-    </ion-col>
-  </ion-row>
-</div>
-
-        <div class="d-flex justify-content-between align-items-center my-5">
-          <div class="d-flex ">
-            <button
-              type="submit"
-              class="btn table-button"
-              [disabled]="itemForm.invalid"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              class="btn table-button"
-              (click)="resetForm()"
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              class="btn table-button"
-              (click)="scanBarcode()"
-            >
-              Scan
-            </button>
           </div>
         </div>
       </form>

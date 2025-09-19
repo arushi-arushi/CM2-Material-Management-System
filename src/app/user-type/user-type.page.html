@@ -5,12 +5,12 @@
   <div class="layout-container">
     <app-sidebar header="User Detail" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
      <div class="main-content" [class.shifted]="sidebarOpen">
-      <div class="d-flex justify-content-center">
-        <p class="fs-5 fw-b">User Form</p>
+      <div class="d-flex justify-content-start para">
+        <p class="ms-2 fs-6 heading">User Type</p>
       </div>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="form">
-          <div class="form-group">
+          <div class="form-group  my-3">
           <ion-searchbar
             formControlName="items"
             placeholder="Type User name i.e. Admin"
@@ -19,9 +19,9 @@
           </ion-searchbar>
         </div> 
         <ion-row>
-        <ion-col  size="12" size-md="3">
+        <ion-col  size="12" size-md="4">
       <div class="form-group">
-        <label for="name">User Type</label>
+        <label name="name" class="labels">User Type</label>
         <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="name" placeholder="User Type"/>
            @if((userForm.get('name')?.touched||userForm.get('name')?.dirty )&& userForm.get('name')?.invalid){
@@ -40,30 +40,62 @@
     </div>
     </div>
           </ion-col>
+           <ion-col size="12" size-md="4">
+      <div class="form-group">
+          <label for="active">Active</label>
+          <ion-checkbox formControlName="active"></ion-checkbox>
+      </div>
+      </ion-col>
         </ion-row>
         <ion-row >
-          <ion-col size="12" size-md="3">
+          <ion-col size="12" size-md="4">
       <div class="form-group">
-        <label for="password">User Type Description</label>
+        <label name="password" class="labels">User Type Description</label>
         <div class="input-wrapper">
         <input type="password" class="form-control" formControlName="password" placeholder="Description"/>
   </div>
       </div>
       </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
-      <div class="form-group">
-          <label for="active">Active</label>
-          <ion-checkbox formControlName="active"></ion-checkbox>
-      </div>
-      </ion-col>
-      </ion-row>
-       <div class="d-flex justify-content-between align-items-center mt-2">
+       <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap-column ">
             <button type="submit" class="btn table-button" [disabled]="userForm.invalid">Submit</button>
             </div>
         </div>
       </form>
+      <div class="table-container">
+        <table class="table table-bordered table-sm mt-5 auto-fit-table">
+          <thead>
+            <tr>
+              <th>User Role</th>
+              <th>Active</th>
+              <th class="actionHead">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of userTypeList; let i = index">
+              <td>{{ item.userType }}</td>
+              <td>{{item.active}}</td>
+              <td class="text-center">
+                <!-- Edit Icon -->
+                <ion-icon
+                  name="create-outline"
+                  class="action-icon edit-icon"
+                  (click)="editProduct()"
+                >
+                </ion-icon>
+
+                <!-- Delete Icon -->
+                <ion-icon
+                  name="trash-outline"
+                  class="action-icon delete-icon ms-2"
+                  (click)="deleteProduct()"
+                >
+                </ion-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
      </div>
     </div>
     </ion-content>

@@ -1,7 +1,7 @@
 .layout-container {
   display: flex;
   flex-direction: row;
-   width: 100%;
+   height: 100%;
 }
 app-sidebar {
   flex-shrink: 0;
@@ -23,7 +23,7 @@ app-sidebar {
     .item{
       margin-left: 86px;
       padding: 0px;
-      width: 538px;
+      width: 544px;
     }
       .input-wrapper {
   flex: 1;
@@ -82,14 +82,48 @@ app-sidebar {
       }
     }
   }
-    @media (max-width:768px){
+   
+    /* styling for the dropdown suggestions */ 
+.select-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* whichever you want, so it's responsive */
+}
+
+.select-container .form-control {
+  width: 100%;
+  box-sizing: border-box;
+}
+.bootstrap-autocomplete-list {
+  position: absolute;
+  top: 100%;   /* right below the input */
+  left: 0;
+  width: 100%; /* match input width */
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #ccc;
+  max-height: 200px; /* so it doesn’t go off screen */
+  overflow-y: auto;
+}
+
+.form-control:focus {
+  outline: none !important;
+  /* you can style border or box shadow as you like */
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color:#b4b2b2;
+}
+ 
+ @media (max-width:768px){
       .item{
         margin-left: 0px;
         width: 300px;
-      }
-      label{
-        font-size: 13px;
-       width: 80px;
       }
       .form-control{
         max-width: 240px;
@@ -97,7 +131,14 @@ app-sidebar {
       .reset{
         margin-left: 79px;
       }
-     
+    }
+   @media (min-width:340px) and (max-width:549px)  {
+      .select-container{
+        margin-left: 14px;
+      }
+      .drop{
+        max-width: 218px;
+      }
     }
   }
 
@@ -120,7 +161,29 @@ app-sidebar {
     margin-right: 2px;
     padding: 0px;
     }
+  }  
+
+  /* Table styles for auto fit */
+  .auto-fit-table{
+    table-layout: auto;
+    width: auto;
   }
-  
-    
+  .auto-fit-table th,
+.auto-fit-table td {
+  white-space: nowrap; /* no wrapping, so width depends on content size */
+  width: auto;
 }
+.table {
+  margin-left: 85px;
+  width:550px !important;
+  @media (min-width:500px) and (max-width:770px) {
+    margin-left: 80px;
+    width: 360px !important;
+  }   
+  @media (max-width:500px) {
+    margin-left: 0px;
+    width:300px !important;
+  }
+}
+}
+

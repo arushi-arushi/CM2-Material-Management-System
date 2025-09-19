@@ -1,131 +1,177 @@
 <ion-header>
-  <app-header></app-header>
+  <app-header [showCloseIcon]="false" [showUserIcon]="true" ></app-header>
 </ion-header>
 <ion-content>
   <div class="layout-container">
-    <app-sidebar header="User Detail" (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
-     <div class="main-content" [class.shifted]="sidebarOpen">
+    <app-sidebar (sidebarToggled)="onSidebarToggled($event)"></app-sidebar>
+    <div class="main-content" [class.shifted]="sidebarOpen">
       <div class="d-flex justify-content-start para">
-        <p class=" ms-2 fs-6 heading">User Master</p>
+        <p class="ms-2 fs-6 heading">User Master</p>
       </div>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="form">
           <div class="form-group my-3">
-          <ion-searchbar
-            formControlName="items"
-            placeholder="Type User name i.e. CD"
-            class="item"
-          >
-          </ion-searchbar>
-        </div> 
-        <ion-row>
-        <ion-col  size="12" size-md="3">
-      <div class="form-group">
-        <label for="name">User Name</label>
-        <div class="input-wrapper">
-        <input type="text" class="form-control" formControlName="name" placeholder="User Name"/>
-           @if((userForm.get('name')?.touched||userForm.get('name')?.dirty )&& userForm.get('name')?.invalid){
-            <div class="error">
-              @if (userForm.get('name')?.errors?.['required']) {
-        <small>User Name is required</small>
-      }
-       @if (userForm.get('name')?.errors?.['minlength']) {
-        <small>User Name must be aleast 3 characters long.</small>
-      }
-        @if (userForm.get('name')?.errors?.['pattern']) {
-        <small>User Name  can only contain letters and spaces.</small>
-      }
-      </div>
-    }
-    </div>
-    </div>
-          </ion-col>
-          <ion-col size="12" size-md="3">  
-      <div class="form-group">
-          <label for="role">User Role</label>
-           <div class="input-wrapper">
-            <div class="select-wrapper">
-          <select class="form-control" formControlName="role">
-            <option value="" disabled selected>User Role</option>
-            @for (r of role; track r) {
-            <option [value]="r">{{ r }}</option>
-            }
-          </select>
-          <ion-icon name="caret-down-outline" class="select-icon"></ion-icon>
+            <ion-searchbar
+              formControlName="items"
+              placeholder="Type User name i.e. CD"
+              class="item"
+            >
+            </ion-searchbar>
           </div>
-       @if(userForm.get('role')?.touched){
-            <div class="error">
-              @if (userForm.get('role')?.errors?.['required']) {
-        <small>User Role is required</small>
-      }
-      </div>
-    }
-    </div>
-      </div>
-        </ion-col>
-        </ion-row>
-        <ion-row >
-          <ion-col size="12" size-md="3">
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-wrapper">
-        <input type="password" class="form-control" formControlName="password" placeholder="Password"/>
-        @if (userForm.get('password')?.touched && userForm.get('password')?.invalid) {
-    <div class="error">
-      @if (userForm.get('password')?.errors?.['required']) {
-        <small>Password is required</small>
-      }
-      @if (userForm.get('password')?.errors?.['minlength']) {
-        <small>Minimum 6 characters</small>
-      }
-    </div>
-  }
-  </div>
-      </div>
-      </ion-col>
-      <ion-col size="12" size-md="3">
-       <div class="form-group">
-          <label for="active">Active</label>
-          <ion-checkbox formControlName="active" class="active"></ion-checkbox>
-      </div>
-      </ion-col>
-      </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label for="name">User Name</label>
+                <div class="select-container">
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="name"
+                    placeholder="User Name"
+                  />
+                  @if((userForm.get('name')?.touched||userForm.get('name')?.dirty
+                  )&& userForm.get('name')?.invalid){
+                  <div class="error">
+                    @if (userForm.get('name')?.errors?.['required']) {
+                    <small>User Name is required</small>
+                    } @if (userForm.get('name')?.errors?.['minlength']) {
+                    <small>User Name must be aleast 3 characters long.</small>
+                    } @if (userForm.get('name')?.errors?.['pattern']) {
+                    <small
+                      >User Name can only contain letters and spaces.</small
+                    >
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label for="role">User Role</label>
+                <div class="select-container">
+                  <div class="input-wrapper">
+                    <div class="select-wrapper">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="role"
+                        id="roleInput"
+                        placeholder="User Role"
+                        (focus)="onFocus('role')"
+                        (blur)="onBlur('role')"
+                        autocomplete="off"
+                      />
+                      <ion-icon
+                        name="caret-down-outline"
+                        class="select-icon"
+                      ></ion-icon>
+                    </div>
+                    @if(userForm.get('role')?.touched){
+                    <div class="error">
+                      @if (userForm.get('role')?.errors?.['required']) {
+                      <small>User Role is required</small>
+                      }
+                      @if(userForm.get('role')?.errors?.['invalidOption']){
+                        <small>Please select a valid role from list</small>
+                      }
+                    </div>
+                    }
+                  </div>
+                  @if(showDropdown['role']){
+                  <div class="dropdown bootstrap-autocomplete-list">
+                    @for (r of filtered['role']; track r) {
+                       <button
+                      type="button"
+                      class="dropdown-item"
+                      (mousedown)="onSelect('role',r)"
+                    >
+                      {{ r }}
+                    </button>
+                    }
+                   
+                  </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="password"
+                    placeholder="Password"
+                  />
+                  @if (userForm.get('password')?.touched &&
+                  userForm.get('password')?.invalid) {
+                  <div class="error">
+                    @if (userForm.get('password')?.errors?.['required']) {
+                    <small>Password is required</small>
+                    } @if (userForm.get('password')?.errors?.['minlength']) {
+                    <small>Minimum 6 characters</small>
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="3">
+              <div class="form-group">
+                <label for="active">Active</label>
+                <ion-checkbox
+                  formControlName="active"
+                  class="active"
+                ></ion-checkbox>
+              </div>
+            </ion-col>
+          </ion-row>
 
-       <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap-column">
-          <div class="d-flex">
-            <button type="submit" class="btn table-button submitButton" [disabled]="userForm.invalid">Submit</button>
-            <button
-              type="button"
-              class="btn table-button"
-              (click)="resetButton($event)"
-            >
-            Password Reset
-            </button>
-            <button
-              type="button"
-              class="btn table-button"
-              (click)="delete()"
-            >
-            Delete
-            </button>
-          </div>
+          <div
+            class="d-flex justify-content-between align-items-center mt-2 flex-wrap-column"
+          >
+            <div class="d-flex">
+              <button
+                type="submit"
+                class="btn table-button submitButton"
+                [disabled]="userForm.invalid"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                class="btn table-button"
+                (click)="resetButton()"
+              >
+                Password Reset
+              </button>
+              <button type="button" class="btn table-button" (click)="delete()">
+                Delete
+              </button>
             </div>
+          </div>
         </div>
       </form>
-     
+
       <div class="table-container">
-        <table class="table table-bordered table-sm mt-5">
+        <table class="table table-bordered table-sm mt-5 auto-fit-table">
           <thead>
             <tr>
-                <th>Category</th>
+              <th>Category</th>
               <th>User Name</th>
-               <th>Active</th>
+              <th>Active</th>
               <th class="actionHead">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of userList; let i = index">
-             <td>{{ item.category }}</td>
+              <td>{{ item.category }}</td>
               <td>{{ item.userName }}</td>
               <td>{{item.active}}</td>
               <td class="text-center">
@@ -148,8 +194,7 @@
             </tr>
           </tbody>
         </table>
-        </div>
-        </div>
+      </div>
     </div>
-    </ion-content>
-    
+  </div>
+</ion-content>

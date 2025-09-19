@@ -39,7 +39,10 @@
   // font-family: Georgia, serif;
   font-family: system-ui;
   font-size: 13px; // font-family: sans-serif;
-
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   .main-content {
     flex: 1;
       padding: 1.3rem 40px;
@@ -65,15 +68,12 @@
     }
     .table {
       border: 1px solid #b9b9b9;
-      margin-bottom: 100px;
-      // display: flex;
-      // flex-direction: wrap;
+      margin-bottom: 10px;
       thead th {
         background-color: #e1c068;
       }
        .actionHead{
         text-align: center;
-        // align-items: center;
       }
       .action-icon {
     font-size: 20px;
@@ -114,7 +114,6 @@
     border-radius: 0;
     background-color: #e1c068;
     text-align: center;
-    // margin-right: 25px;
     height: 26px;
     line-height: 1px;
     width:150px;
@@ -128,11 +127,18 @@
   }
 .custom-popover {
   --transform-origin: center center;
-  --width: 420px;        /* desired width */
+  --width: 500px;        /* desired width */
   --min-width: 300px;
-  --max-width: 95vw;     /* responsive fallback */
-  --border-radius: 12px;
+  --max-width: 95vw;  /* responsive fallback */
+  --height:300px;   
+  --border-radius: 14px;
 }
-.custom-popover .popover-content{
-  padding: 16px;
+
+.customs-popover {
+  --transform-origin: center center;
+  --width: 750px;        /* desired width */
+  --min-width: 300px;
+  --max-width: 95vw;  /* responsive fallback */
+  --height:500px;   
+  --border-radius: 14px;
 }

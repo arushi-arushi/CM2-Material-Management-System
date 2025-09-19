@@ -1,0 +1,36 @@
+<ion-header>
+  <app-header [showCloseIcon]="true" [showUserIcon]="false" (close)="goBack()"></app-header>
+</ion-header>
+<ion-content>
+  <div class="main-content"> <div class="table-container">
+          <table class="table table-bordered table-sm mt-5 auto-fit-table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>No. of Copies</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of itemList; track $index) {
+              <tr>
+                <td>{{item.itemName}}</td>
+                <td>{{item.copies}}</td>
+              </tr>
+            }
+            </tbody>
+          </table>
+        </div>
+          <div class="d-flex justify-content-between align-items-center mt-5">
+          <div class="d-flex ">
+            <button type="button" class="btn table-button" (click)="print()">Print</button>
+            <button
+              type="button"
+              class="btn table-button"
+              (click)="cancel()"
+            >
+            Cancel
+            </button>
+            </div>
+            </div>
+          </div>
+          </ion-content>

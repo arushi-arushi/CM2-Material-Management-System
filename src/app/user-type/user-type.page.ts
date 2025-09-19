@@ -17,7 +17,6 @@ export class UserTypePage implements OnInit {
 sidebarOpen=false;
    @ViewChild(SidebarPage) stock!:SidebarPage;
    userForm:FormGroup;
-   role=['role1','role2','role3'];
 
   constructor(private fb:FormBuilder,private route:Router,private popoverController:PopoverController) {
     this.userForm=this.fb.group({
@@ -27,9 +26,22 @@ sidebarOpen=false;
       active:[true],
     });
    }
-
+   userTypeList = [
+    {
+      userType: 'Admin',
+      active: 'yes',
+      action: '',
+    },
+    {
+      category: '',
+      active: '',
+      action: '',
+    },
+  ];
   ngOnInit() {
   }
+   editProduct() {}
+  deleteProduct() {}
 onSidebarToggled(open: boolean) {
   this.sidebarOpen = open;
 }

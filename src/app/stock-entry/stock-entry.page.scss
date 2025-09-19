@@ -1,56 +1,130 @@
 .layout-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
-
-
+  height: 100%;
+} 
 app-sidebar {
   flex-shrink: 0;
 }
 
 .main-content {
-  margin-left: 0;
-
-  &.shifted {
-    margin-left: 15px;
-  }
-.custom-gap{
-  gap:12px;
+.main-content.shifted{
+  margin-left: 15px;
 }
   /* ===== Form Styling ===== */
+  
   .form-group {
     display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-
-    .form-label {
-      width: 120px;
-      font-weight: 500;
-      margin: 0;
-      span {
-        color: red;
-      }
+    align-items: flex-start;
+    margin-bottom: 5px;
+label{
+      width: 130px;
     }
+    .labels {
+      width: 160px; /* fixed width for labels */
+    }
+      .input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* stack input and error vertically */
+  max-width: 400px;
+}
+    span{
+        color: red;
+    }
+    .form-control {
+      flex: 1; /* input expands to take remaining space */
+      border-radius: 0px;
+      max-width: 400px;
+      font-size: 10px;
+      border:1px solid black;
+    }
+    .select-wrapper {
+    position: relative;
+    width: 100%;
 
-    .input-wrapper {
-      flex: 1;
-
-      .form-control {
-        width: 100%;
-        border: 1px solid #000;
-        border-radius: 0px;
-        padding: 6px 4px;
-        font-size: 10px;
+    .select-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 14px;
+      color: #555;
+    }
+    @media (max-width:768px) {
+      .select-icon{
+        right:210px ;
       }
-
-      
     }
     
   }
-  @media (max-width: 768px) {
-    .custom-gap{
-      gap:0px;
+   
+    /* styling for the dropdown suggestions */ 
+.select-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* whichever you want, so it's responsive */
+}
+
+.select-container .form-control {
+  width: 100%;
+  box-sizing: border-box;
+}
+.bootstrap-autocomplete-list {
+  position: absolute;
+  top: 100%;   /* right below the input */
+  left: 0;
+  width: 100%; /* match input width */
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #ccc;
+  max-height: 200px; /* so it doesn’t go off screen */
+  overflow-y: auto;
+}
+
+.form-control:focus {
+  outline: none !important;
+  /* you can style border or box shadow as you like */
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color:#eee8e8;
+}
+ 
+ @media (max-width:768px){
+      .labels , label{
+        width: 110px;
+      }
+      .form-control{
+        max-width: 200px;
+      }
+      .reset{
+        margin-left: 79px;
+      }
+      
     }
+    @media (max-width:375px) {
+      .labels , label{
+        width: 75px;
+      }
+    }
+   @media (min-width:340px) and (max-width:549px)  {
+      .select-container{
+        margin-left: 14px;
+      }
+      .drop{
+        max-width: 218px;
+      }
+    }
+  }
+ 
+  @media (max-width:768px) {
     .form-group {
       // flex-direction: column;
       align-items: flex-start;
@@ -68,21 +142,11 @@ app-sidebar {
     .form-control {
       width: 100%;
     }
-    .buttons{
-      margin-left: 0px;
-    }
   }
   /* ===== Custom Select with Icon ===== */
   .select-wrapper {
     position: relative;
     width: 100%;
-
-    select {
-      appearance: none;
-      padding: 6px 8px;
-      padding-right: 30px;
-      height: 26px; /* make it same height as input */
-    }
 
     .select-icon {
       position: absolute;
@@ -94,70 +158,116 @@ app-sidebar {
       color: #555;
     }
   }
-
-  
-  /* Buttons + Search */
-  .searchbar-custom {
-    flex: 1;
-    min-width: 200px;
-    height: 26px;
-    font-size: 10px;
+  .bar-code{
+    font-size:12px;
+    padding: 0px !important;
+ @media (max-width:500px) {
+  font-size: 11px;
+ }
   }
-
-
-  /* ===== Table Styling ===== */
-  .table-responsive {
-    width: 100%;
-    overflow-x: auto;
-      -ms-overflow-style: none;
+  .add-button{
+   width: 135px;
+   height: 26px;
+   background-color: #e1c068;
+   border-radius: 0px;
+   border: 1px solid black;
+   @media (max-width:768px) {
+    width:97px ;
+   }
   }
-    .table-responsive::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-  -webkit-overflow-scrolling: touch;
-}
-    .table {
-       min-width: 1200px; /* ensures horizontal scroll on smaller screens */
-  border-collapse: collapse;
-  font-size: 14px;
-  width: 100%;
-
+  .buttons{
+      margin-left: 79px;
+      @media (max-width:768px) {
+        margin-left: 76px;
+      }
+      @media (max-width:548px) {
+        margin-left:90px ;
+      }
+      @media  (max-width:374px) {
+        margin-left: 54px;
+      }
+  }
+    .table-button{
+      background-color: #e1c068;
+      border: 1px solid black;
+      @media (max-width:580px) {
+      width: 110px;
+      }
+      @media (max-width:390px) {
+        font-size: 9px;
+      padding: 0px !important;
+      width:95px ;
+      }
     }
-
-    .table thead th {
-      background: #e1c068;
-      font-weight: 500;
-      text-align: left;
-      padding: 8px;
+    .footers{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem;
+      margin-left: 79px;
+    @media (max-width:768px) {
+      flex-direction: column;
+      margin-left: 76px;
     }
-
-    .table td {
-      padding: 8px;
-      border: 1px solid #ddd;
+    @media (max-width:580px) {
+flex-direction: column;
+      margin-left: 0px;
+    //  .total-button{
+    //   width: 90px;
+    //  }
+    
     }
-     .table-button {
-    border-radius: 0px;
-    background-color: #e1c068;
-    text-align: center;
-    height: 26px;
-    line-height: 1px;
-    border: 1px solid black;
-    font-weight: 500;
+    .bottom-button{
+      gap: 5px;
+    }
+     .total-para{
+     @media (min-width:1120px) and (max-width:1300px) {
+ margin-left: 2rem;
+      }
+      @media (min-width:1200px) {
+        margin-left: 105px;
+      }
+    }
+     .grand-button{
+      border: 1px solid black;
+      background: #ccc;
+      width: 220px;
+      
+      @media (min-width:500px) and (max-width:768px){
+        width:377px;
+      }
+      @media (min-width:1300px) {
+        width: 300px;
+      }
+      @media (max-width:580px) {
+        width: 258px;
+      }
+      @media (max-width:390px) {
+        width: 210px;
+      }
+      }
+    }
+   /* Table styles for auto fit */
+  .auto-fit-table{
+    table-layout: auto;
+    width: auto;
   }
-
-  .total-button {
-    border-radius: 0px;
-    background-color: #b9b9b9;
-    height: 26px;
-    line-height: 1px;
-    border: 1px solid black;
-    font-weight: 500;
-    min-width: 200px;   /* ensure it’s always visible */
-  width: auto;     
+  .auto-fit-table th,
+.auto-fit-table td {
+  white-space: nowrap; /* no wrapping, so width depends on content size */
+  width: auto;
+}
+.table {
+  margin-left: 85px;
+  width:550px !important;
+  @media (min-width:500px) and (max-width:770px) {
+    margin-left: 80px;
+    width: 360px !important;
+  }   
+  @media (max-width:500px) {
+    margin-left: 0px;
+    width:300px !important;
   }
-.buttons{
-margin-left: 120px;
-}
+} 
   
-  
-}
 }

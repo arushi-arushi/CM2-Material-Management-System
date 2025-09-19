@@ -1,0 +1,43 @@
+.main-content {
+ .submitButton{
+      margin-left: 83px;
+    }
+    .table-button {
+    background-color: #e1c068;
+   margin-right: 10px;
+   @media (max-width:1520px) {
+    width: 110px;
+    margin-right: 12px;
+    padding: 0px;
+   }
+    @media (max-width:500px) {
+      margin-left: 0px;
+    display: inline-block;
+    width: 100px;
+     font-size: small;
+    margin-right: 2px;
+    padding: 0px;
+    }
+  } 
+  /* Table styles for auto fit */
+  .auto-fit-table{
+    table-layout: auto;
+    width: auto;
+  }
+  .auto-fit-table th,
+.auto-fit-table td {
+  white-space: nowrap; /* no wrapping, so width depends on content size */
+  width: auto;
+  height: 20px;
+}
+.table {
+  width:500px !important;
+  @media (min-width:500px) and (max-width:770px) {
+    width: 360px !important;
+  }   
+  @media (max-width:500px) {
+    width:270px !important;
+  }
+}
+  
+}
