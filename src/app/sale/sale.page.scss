@@ -2,162 +2,181 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-} 
+}
 app-sidebar {
   flex-shrink: 0;
 }
 
 .main-content {
-.main-content.shifted{
-  margin-left: 15px;
-}
+  .main-content.shifted {
+    margin-left: 15px;
+  }
   /* ===== Form Styling ===== */
   .form-group {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 5px;
-label{
-      width: 130px;
+    align-items:center;
+    margin-bottom: 2px;
+    label {
+      width: 75px;
+    }
+    .mobile-labels{
+      width:70px;
     }
     .labels {
-      width: 180px; /* fixed width for labels */
+      width: 181px; /* fixed width for labels */
     }
-    .simLabel{
+    
+    .simLabel {
       width: 70px;
     }
-    .item{
+    .item {
       margin-left: 170px;
       padding: 0px;
       width: 580px;
     }
-      .input-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* stack input and error vertically */
-  max-width: 300px;
-}
-.saleTrans{
-  max-width: 165px;
-}
-    span{
-        color: red;
+    .input-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column; /* stack input and error vertically */
+      max-width: 300px;
+    }
+    .saleTrans {
+      max-width: 165px;
+    }
+    span {
+      color: red;
     }
     .form-control {
       flex: 1; /* input expands to take remaining space */
-      border-radius: 0px;
+      border-radius: 4px;
       max-width: 310px;
-      font-size: 10px;
-      border:1px solid black;
+      font-size: 13px;
+      border: 1px solid black;
     }
-    .sale-control{
+    .sale-control {
       max-width: 165px;
     }
     .select-wrapper {
-    position: relative;
-    width: 100%;
+      position: relative;
+      width: 100%;
 
-    .select-icon {
+      .select-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 14px;
+        color: #555;
+      }
+
+      @media (max-width: 768px) {
+        .select-icon {
+          right: 10px;
+        }
+      }
+    }
+
+    /* styling for the dropdown suggestions */
+    .select-container {
+      position: relative;
+      width: 100%;
+      max-width: 300px; /* whichever you want, so it's responsive */
+    }
+    .sale-container {
+      max-width: 170px;
+    }
+    .select-container .form-control {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .bootstrap-autocomplete-list {
       position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      font-size: 14px;
-      color: #555;
+      top: 100%; /* right below the input */
+      left: 0;
+      width: 100%;
+      max-width: 165px; /* match input width */
+      z-index: 1000;
+      background: #fff;
+      border: 1px solid #ccc;
+      max-height: 200px; /* so it doesn’t go off screen */
+      overflow-y: auto;
     }
-   
-    @media (max-width:768px) {
-      .select-icon{
-        right:10px ;
-      }
+
+    .form-control:focus {
+      outline: none !important;
+      /* you can style border or box shadow as you like */
     }
-    
+
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .dropdown-item:hover {
+      background-color: #eee8e8;
+    }
+     @media (min-width:1394px) and (max-width:1560px) {
+    .labels{
+      width: 135px;
+    }
+    .cus-labels{
+      width: 130px;
+    }
   }
-  
-    /* styling for the dropdown suggestions */ 
-.select-container {
-  position: relative;
-  width: 100%;
-  max-width: 300px; /* whichever you want, so it's responsive */
-}
-.sale-container{
-  max-width: 170px;
-}
-.select-container .form-control {
-  width: 100%;
-  box-sizing: border-box;
-}
-.bootstrap-autocomplete-list {
-  position: absolute;
-  top: 100%;   /* right below the input */
-  left: 0;
-  width: 100%;
-  max-width: 165px; /* match input width */
-  z-index: 1000;
-  background: #fff;
-  border: 1px solid #ccc;
-  max-height: 200px; /* so it doesn’t go off screen */
-  overflow-y: auto;
-}
-
-.form-control:focus {
-  outline: none !important;
-  /* you can style border or box shadow as you like */
-}
-
-.dropdown-item {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.dropdown-item:hover {
-  background-color:#eee8e8;
-}
- 
- @media (max-width:768px){
-      .labels ,label{
-        width: 130px;
+  @media (min-width:1259px) and (max-width:1394px) {
+    .labels{
+      width: 135px;
+    }
+    .cus-labels{
+      width: 179px;
+    }
+  }
+    @media (max-width: 768px) {
+      .labels,
+      label {
+        width: 115px;
       }
-      .mobile-labels{
+      .mobile-labels {
         width: 110px;
       }
-      .form-control{
+      .form-control {
         max-width: 292px;
       }
-        .item{
+      .item {
         margin-left: 0px;
         width: 415px;
       }
     }
-    @media (max-width:465px) {
-      label{
+    @media (max-width: 465px) {
+      label {
         width: 110px;
       }
-      .labels,.mobile-labels{
+      .labels,
+      .mobile-labels {
         width: 70px;
       }
-      .form-control{
+      .item{
+        width:285px;
+      }
+      .form-control {
         max-width: 200px;
       }
-      .saleTrans{
-        max-width:100px ;
+      .saleTrans {
+        max-width: 100px;
       }
     }
-   @media (min-width:340px) and (max-width:549px)  {
-      .select-container{
+    @media (min-width: 340px) and (max-width: 549px) {
+      .select-container {
         margin-left: 14px;
       }
-      .drop{
+      .drop {
         max-width: 218px;
       }
     }
   }
- 
-  @media (max-width:768px) {
-    .form-group {
-      // flex-direction: column;
-      align-items: flex-start;
-    }
+
+  @media (max-width: 768px) {
 
     .form-label {
       width: 100%;
@@ -165,7 +184,7 @@ label{
     }
 
     .input-wrapper {
-      width:  100%;
+      width: 100%;
     }
 
     .form-control {
@@ -187,89 +206,96 @@ label{
       color: #555;
     }
   }
-  .bar-code{
-    font-size:12px;
-    padding: 0px !important;
- @media (max-width:500px) {
-  font-size: 11px;
- }
-  }
-  
-    .table-button{
-      background-color: #e1c068;
-      border: 1px solid black;
-      @media (max-width:768px) {
+
+  .table-button {
+    
+    @media (max-width: 768px) {
       width: 110px;
-      }
-      @media (max-width:390px) {
-        font-size: 9px;
-      padding: 0px !important;
-      width:95px ;
-      }
     }
-     .display-button{
+    @media (max-width: 390px) {
+      font-size: 9px;
+      padding: 0px !important;
+      width: 95px;
+    }
+  }
+  .submit-button{
+    background-color: #e1c068;
+    border: 1px solid black;
+  }
+  .display-button {
     width: 60px;
     font-size: smaller;
     padding: 0px;
-    @media (max-width:375px) {
+    @media (max-width: 375px) {
       max-width: 40px;
     }
-   }
-  .end-button{
-    margin-right: 180px;
   }
-
-    .footers{
-      display: flex;
-      flex-wrap: wrap;
-      gap:10px;
-    .bottom-button{
-      gap: 5px;
-    }
-     .total-para{
-     @media (min-width:1120px) and (max-width:1300px) {
- margin-left: 1rem;
-      }
-      @media (min-width:1200px) {
-        // margin-left: 105px;
-      }
-    }
-     .grand-button{
+  .footer-actions {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 18px;
+  width: 100%; 
+  @media (max-width:853px) {
+    position: relative;
+    padding-bottom: 70px;
+  }
+}
+  .footers { 
+    gap: 18px;
+    @media (max-width:853px) {
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 0px;
+        .total-para{
+         width: 100px;
+        }
+       }
+  }
+  .grand-button {
       border: 1px solid black;
-      background: #ccc;
+      border-radius: 4px;
       width: 100px;
-      // display: flex;
-      // flex-wrap: column;
-      @media (min-width:500px) and (max-width:768px){
-        width:100px;
+       background: #ccc;
+       @media (max-width:963px) {
+        width: 77px;
+        font-size: smaller;
+       }
+      @media (max-width:853px) {
+        width: 300px;
+        font-size: 13px;
+        
       }
-      @media (max-width:390px) {
-        width: 90px;
+      @media (max-width: 450px) {
+        width: 190px;
         font-size: smaller;
       }
-      }
     }
-   /* Table styles for auto fit */
-  .auto-fit-table{
+    .color{
+      background-color: #fff;
+    }
+  /* Table styles for auto fit */
+  .auto-fit-table {
     table-layout: auto;
     width: auto;
   }
   .auto-fit-table th,
-.auto-fit-table td {
-  white-space: nowrap; /* no wrapping, so width depends on content size */
-  width: auto;
-}
-.table {
-  margin-left: 85px;
-  width:550px !important;
-  @media (min-width:500px) and (max-width:770px) {
-    margin-left: 80px;
-    width: 360px !important;
-  }   
-  @media (max-width:500px) {
-    margin-left: 0px;
-    width:300px !important;
+  .auto-fit-table td {
+    white-space: nowrap; /* no wrapping, so width depends on content size */
+    width: auto;
   }
-} 
+  .table {
+
+    margin-left: 85px;
+    width: 550px !important;
+    @media (min-width: 500px) and (max-width: 770px) {
+      margin-left: 80px;
+      width: 360px !important;
+    }
+    @media (max-width: 500px) {
+      margin-left: 0px;
+      width: 300px !important;
+    }
+  }
   
+
 }

@@ -74,4 +74,8 @@ export const routes: Routes = [
     path: 'item-bar-code',
     loadComponent: () => import('./item-bar-code/item-bar-code.page').then( m => m.ItemBarCodePage)
   },
+  {
+    path: 'item-sale-popup',
+    loadComponent: () => import('./item-sale-popup/item-sale-popup.page').then( m => m.ItemSalePopupPage)
+  },
 ];

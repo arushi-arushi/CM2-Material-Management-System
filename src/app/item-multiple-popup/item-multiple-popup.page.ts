@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule,PopoverController } from '@ionic/angular';
 import { HeaderPage } from '../header/header.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarPage } from "../sidebar/sidebar.page";
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './item-multiple-popup.page.html',
   styleUrls: ['./item-multiple-popup.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, HeaderPage, SidebarPage, ReactiveFormsModule, SidebarPage],
+  imports: [IonicModule, CommonModule, HeaderPage, ReactiveFormsModule],
 })
 export class ItemMultiplePopupPage implements OnInit {
 sidebarOpen=false;
@@ -32,7 +32,7 @@ sidebarOpen=false;
     mrp:100
     }
   ];
-  constructor(private route:Router){
+  constructor(private route:Router,private popoverController:PopoverController){
 
   }
    
@@ -42,6 +42,7 @@ onSidebarToggled(open: boolean) {
 }
 goBack(){
   this.route.navigate(['/sale']);
+  this.popoverController.dismiss();  
 }
 
 }

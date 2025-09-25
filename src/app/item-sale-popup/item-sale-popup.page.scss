@@ -25,9 +25,6 @@ label{
       max-width: 300px;
       border:1px solid black;
     }
-    .color{
-      background-color: #ccc;
-    }
     .select-wrapper {
     position: relative;
     width: 100%;
@@ -119,14 +116,10 @@ label{
   }
  
   @media (max-width:768px) {
-    .form-group {
-      // flex-direction: column;
-      align-items: flex-start;
-    }
 
     .form-label {
       width: 100%;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .input-wrapper {
@@ -152,67 +145,10 @@ label{
       color: #555;
     }
   } 
- 
-  /* Table styles for auto fit */
-  .table-container{
-    display: flex;
-    flex-wrap: wrap;
-    
-  .auto-fit-table{
-    table-layout: auto;
-    width: auto;
-  }
-  .auto-fit-table th,
-.auto-fit-table td {
-  white-space: nowrap; /* no wrapping, so width depends on content size */
-  width: auto;
-  height: 20px;
-}
-.table {
-  width:450px !important;
-  margin-left: 100px;
-  @media (min-width:770px) and (max-width:1000px) {
-   margin-left: 110px;
-  }
-  @media (min-width:500px) and (max-width:770px) {
-    margin-left: 0px;
-    width: 360px !important;
-  }   
-  @media (max-width:500px) {
-    margin-left: 0px;
-    width:270px !important;
-  }
-}
-.add{
-    @media (max-width:400px) {
-      margin-top: 0px !important;
-    }
-}
- .add-remove{
-   border-radius: 4px;
-    background-color: #e1c068;
-    text-align: center;
-    height: 28px;
-    line-height: 1px;
-    width:28px;
-    border: 1px solid black;
-    font-size: 20px;
-  
- } 
-}
- .table-button {
-    @media (max-width:500px) {
-      margin-left: 0px;
-    display: inline-block;
-    width: 130px;
-     font-size: small;
-    padding: 0px;
-    }
-  }
  .submit-button{
       margin-left: 100px;
-      background-color: #e1c068;
-      border: 1px solid black;
+       background-color: #e1c068;
+       border-radius: 1px solid black;
        @media (min-width:770px) and (max-width:1000px) {
    margin-left: 110px;
   }
@@ -224,4 +160,13 @@ label{
     // width:270px !important;
   }
     }
+    .table-button {
+    @media (max-width:500px) {
+      margin-left: 0px;
+    display: inline-block;
+    width: 130px;
+     font-size: small;
+    padding: 0px;
+    }
+  }
 }

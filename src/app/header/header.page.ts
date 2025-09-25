@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import  {IonicModule} from '@ionic/angular';
+import  {IonicModule,PopoverController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ResetPasswordPage } from '../reset-password/reset-password.page';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ export class HeaderPage implements OnInit {
   @Input() showCloseIcon: boolean = false;
 
   @Output() close = new EventEmitter<void>();
-  constructor(private route:Router) { }
+  constructor(private route:Router, private popoverController : PopoverController) { }
 
   ngOnInit() {
   }
@@ -23,10 +24,14 @@ export class HeaderPage implements OnInit {
   this.route.navigate(['/user']);
   }
 
-changePassword() {
-  this.route.navigate(['/forget']);
-}
-
+ async changePassword() {
+    const popover = await this.popoverController.create({
+      component: ResetPasswordPage,
+      translucent: true,
+      cssClass: 'custom-popover',
+    });
+    await popover.present();
+  }
 logout() {
   this.route.navigate(['/login']);
 }

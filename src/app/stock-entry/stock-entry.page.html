@@ -10,13 +10,13 @@
         <p class="ms-2 fs-6 heading">Stock Entry</p>
       </div>
       <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
-        <div class="form">
+        <div class="form my-2">
           <!-- Transaction Type & Invoice No -->
           <ion-row>
             <ion-col size="12" size-md="4">
               <div class="form-group">
                 <label name="transType" class="labels"
-                  >Transaction Type <span>*</span></label
+                  >Transaction Type</label
                 >
                 <div class="select-container">
                   <div class="input-wrapper">
@@ -38,15 +38,9 @@
                     </div>
                     @if(materialForm.get('transType')?.touched){
                     <div class="error">
-                      @if (materialForm.get('transType')?.errors?.['required'])
-                      {
-                      <small>Transaction Type is required</small>
-                      }
                       @if(materialForm.get('transType')?.errors?.['invalidOption'])
                       {
-                      <small
-                        >Please select a valid transaction type from list</small
-                      >
+                      <small>Please select a valid Transaction Type from list</small>
                       }
                     </div>
                     }
@@ -81,7 +75,104 @@
           @if(materialForm.get('transType')?.value==='Purchase'){
           <ng-container >
              <ion-row>
-              
+              <ion-col size="12" size-md="4">
+              <div class="form-group">
+                <label name="transId" class="labels"
+                  >Transaction Id</label
+                >
+                <div class="select-container">
+                  <div class="input-wrapper">
+                    <div class="select-wrapper">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="transId"
+                        id="transIdInput"
+                        placeholder="Transaction Id"
+                        (focus)="onFocus('transId')"
+                        (blur)="onBlur('transId')"
+                        autocomplete="off"
+                      />
+                      <ion-icon
+                        name="caret-down-outline"
+                        class="select-icon"
+                      ></ion-icon>
+                    </div>
+                    @if(materialForm.get('transId')?.touched){
+                    <div class="error">
+                      @if(materialForm.get('transId')?.errors?.['invalidOption'])
+                      {
+                      <small>Please select a valid Transaction Id from list</small>
+                      }
+                    </div>
+                    }
+                  </div>
+                  @if(showDropdown['transId']){
+                  <div class="dropdown bootstrap-autocomplete-list">
+                    @for (n of filtered['transId']; track n) {
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      (mousedown)="onSelect('transId',n)"
+                    >
+                      {{n}}
+                    </button>
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="4">
+              <div class="form-group">
+                <label for="vendor"
+                  >Vendor Name</label
+                >
+                <div class="select-container">
+                  <div class="input-wrapper">
+                    <div class="select-wrapper">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="vendor"
+                        id="vendorInput"
+                        placeholder="Vendor Name"
+                        (focus)="onFocus('vendor')"
+                        (blur)="onBlur('vendor')"
+                        autocomplete="off"
+                      />
+                      <ion-icon
+                        name="caret-down-outline"
+                        class="select-icon"
+                      ></ion-icon>
+                    </div>
+                    @if(materialForm.get('vendor')?.touched){
+                    <div class="error">
+                      @if(materialForm.get('vendor')?.errors?.['invalidOption'])
+                      {
+                      <small>Please select a valid Vendor Name from list</small>
+                      }
+                    </div>
+                    }
+                  </div>
+                  @if(showDropdown['vendor']){
+                  <div class="dropdown bootstrap-autocomplete-list">
+                    @for (n of filtered['vendor']; track n) {
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      (mousedown)="onSelect('vendor',n)"
+                    >
+                      {{n}}
+                    </button>
+                    }
+                  </div>
+                  }
+                </div>
+              </div>
+            </ion-col>
+            </ion-row>
+            <ion-row>
             <ion-col size="12" size-md="4">
               <div class="form-group">
                 <label for="invoiceNo" class="labels">Invoice No</label>
@@ -105,10 +196,6 @@
                     </div>
                     @if(materialForm.get('invoiceNo')?.touched){
                     <div class="error">
-                      @if (materialForm.get('invoiceNo')?.errors?.['required'])
-                      {
-                      <small>Invoice No. is required</small>
-                      }
                       @if(materialForm.get('invoiceNo')?.errors?.['invalidOption'])
                       {
                       <small>Please select a valid Invoice No. from list</small>
@@ -134,60 +221,7 @@
             </ion-col>
             <ion-col size="12" size-md="4">
               <div class="form-group">
-                <label for="vendor"
-                  >Vendor Name <span>*</span></label
-                >
-                <div class="select-container">
-                  <div class="input-wrapper">
-                    <div class="select-wrapper">
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="vendor"
-                        id="vendorInput"
-                        placeholder="Vendor Name"
-                        (focus)="onFocus('vendor')"
-                        (blur)="onBlur('vendor')"
-                        autocomplete="off"
-                      />
-                      <ion-icon
-                        name="caret-down-outline"
-                        class="select-icon"
-                      ></ion-icon>
-                    </div>
-                    @if(materialForm.get('vendor')?.touched){
-                    <div class="error">
-                      @if (materialForm.get('vendor')?.errors?.['required']) {
-                      <small>Vendor Name is required</small>
-                      }
-                      @if(materialForm.get('vendor')?.errors?.['invalidOption'])
-                      {
-                      <small>Please select a valid Vendor Name from list</small>
-                      }
-                    </div>
-                    }
-                  </div>
-                  @if(showDropdown['vendor']){
-                  <div class="dropdown bootstrap-autocomplete-list">
-                    @for (n of filtered['vendor']; track n) {
-                    <button
-                      type="button"
-                      class="dropdown-item"
-                      (mousedown)="onSelect('vendor',n)"
-                    >
-                      {{n}}
-                    </button>
-                    }
-                  </div>
-                  }
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="12" size-md="4">
-              <div class="form-group">
-                <label for="invoiceDate" class="labels">Invoice Date</label>
+                <label for="invoiceDate">Invoice Date</label>
                 <div class="select-container">
                   <div class="input-wrapper">
                     <input
@@ -209,7 +243,7 @@
              <ion-col size="12" size-md="4">
               <div class="form-group">
                 <label for="category" class="labels"
-                  >Category <span>*</span></label
+                  >Category</label
                 >
                 <div class="select-container">
                   <div class="input-wrapper">
@@ -229,11 +263,8 @@
                         class="select-icon"
                       ></ion-icon>
                     </div>
-                     @if(materialForm.get('category')?.touched){
+                    @if(materialForm.get('category')?.touched){
                     <div class="error">
-                      @if (materialForm.get('category')?.errors?.['required']) {
-                      <small>Category is required</small>
-                      }
                       @if(materialForm.get('category')?.errors?.['invalidOption'])
                       {
                       <small>Please select a valid Category from list</small>
@@ -260,14 +291,50 @@
               <ion-col size="12" size-md="4">
 
       <div class="form-group">
-        <label for="item">Item</label>
+        <label name="item">Item</label>
         <div class="select-container">
           <div class="input-container">
-            <input type="text" class="form-control" formControlName="item" placeholder="Item"/>
-          </div>
-        </div>
-        </div>
-        </ion-col>
+             <div class="select-wrapper">
+           <input
+                        type="text"
+                        class="form-control"
+                        formControlName="item"
+                        id="itemInput"
+                        placeholder="Item"
+                        (focus)="onFocus('item')"
+                        (blur)="onBlur('item')"
+                        autocomplete="off"
+                      />
+                      <ion-icon
+                        name="caret-down-outline"
+                        class="select-icon"
+                      ></ion-icon>
+                    </div>
+                    @if(materialForm.get('item')?.touched){
+                    <div class="error">
+                      @if(materialForm.get('item')?.errors?.['invalidOption'])
+                      {
+                      <small>Please select a valid Item from list</small>
+                      }
+                    </div>
+                    }
+                  </div>
+                  @if(showDropdown['item']){
+                  <div class="dropdown bootstrap-autocomplete-list">
+                    @for (n of filtered['item']; track n) {
+                    <button
+                      type="button"
+                      class="dropdown-item"
+                      (mousedown)="onSelect('item',n)"
+                    >
+                      {{n}}
+                    </button>
+                    }
+                  </div>
+                  }
+                </div>
+                </div>
+            </ion-col>
             </ion-row>
           </ng-container>
          }
@@ -348,11 +415,12 @@
         </div>
 
         <!-- Bottom Buttons -->
+          <div class="footer-actions">
         <div class="footers">
-          <div class="d-flex flex-wrap bottom-button">
+          <div class="d-flex bottom-button">
             <button
               type="submit"
-              class="btn table-button"
+              class="btn table-button submit-button"
               [disabled]="materialForm.invalid"
             >
               Submit
@@ -373,7 +441,7 @@
             </button>
           </div>
          
-          <div class="grand-total">
+          <div class="d-flex ">
             <p class="total-para">
               Grand Total
               <input
@@ -382,6 +450,7 @@
                 placeholder="Total"
               />
             </p>
+          </div>
           </div>
         </div>
         </div>

@@ -1,5 +1,5 @@
 <ion-header>
-  <app-header></app-header>
+   <app-header [showCloseIcon]="false" [showUserIcon]="true" ></app-header>
 </ion-header>
 <ion-content>
   <div class="layout-container">
@@ -10,12 +10,12 @@
         <p class="ms-2 fs-6 heading">Sale</p>
       </div>
       <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-        <div class="form mb-2">
-          <ion-row>
+        <div class="form my-2">
+          <ion-row class="">
             <ion-col size="12" size-md="4">
-              <div class="d-flex">
+              <div class="d-flex align-items-center">
                 <div class="form-group">
-                  <label name="transType" class="labels"
+                  <label name="saleTransType" class="labels"
                     >Transaction Type <span>*</span></label
                   >
                   <div class="select-container sale-container">
@@ -24,11 +24,11 @@
                         <input
                           type="text"
                           class="form-control sale-control"
-                          formControlName="transType"
+                          formControlName="saleTransType"
                           id="transInput"
                           placeholder="Transaction Type"
-                          (focus)="onFocus('transType')"
-                          (blur)="onBlur('transType')"
+                          (focus)="onFocus('saleTransType')"
+                          (blur)="onBlur('saleTransType')"
                           autocomplete="off"
                         />
                         <ion-icon
@@ -36,12 +36,12 @@
                           class="select-icon"
                         ></ion-icon>
                       </div>
-                      @if(itemForm.get('transType')?.touched){
+                      @if(itemForm.get('saleTransType')?.touched){
                       <div class="error">
-                        @if (itemForm.get('transType')?.errors?.['required']) {
+                        @if (itemForm.get('saleTransType')?.errors?.['required']) {
                         <small>Transaction Type is required</small>
                         }
-                        @if(itemForm.get('transType')?.errors?.['invalidOption'])
+                        @if(itemForm.get('saleTransType')?.errors?.['invalidOption'])
                         {
                         <small
                           >Please select a valid transaction type from
@@ -51,13 +51,13 @@
                       </div>
                       }
                     </div>
-                    @if(showDropdown['transType']){
+                    @if(showDropdown['saleTransType']){
                     <div class="dropdown bootstrap-autocomplete-list">
-                      @for (t of filtered['transType']; track t) {
+                      @for (t of filtered['saleTransType']; track t) {
                       <button
                         type="button"
                         class="dropdown-item"
-                        (mousedown)="onSelect('transType',t)"
+                        (mousedown)="onSelect('saleTransType',t)"
                       >
                         {{t}}
                       </button>
@@ -79,7 +79,7 @@
               </div>
             </ion-col>
             <ion-col size="12" size-md="4">
-              <div class="d-flex">
+              <div class="d-flex align-items-center gap-1">
                 <div class="form-group">
                   <label name="bill">Bill No</label>
                   <div class="select-container sale-container">
@@ -102,9 +102,7 @@
                       </div>
                       @if(itemForm.get('bill')?.touched){
                       <div class="error">
-                        @if (itemForm.get('bill')?.errors?.['required']) {
-                        <small>Invoice No. is required</small>
-                        } @if(itemForm.get('bill')?.errors?.['invalidOption']) {
+                        @if(itemForm.get('bill')?.errors?.['invalidOption']) {
                         <small>Please select a valid Bill No. from list</small>
                         }
                       </div>
@@ -147,7 +145,7 @@
           <ion-row>
             <ion-col size="12" size-md="4">
               <div class="form-group">
-                <label name="name" class="labels mobile-labels">Customer Name</label>
+                <label name="name" class="labels mobile-labels cus-labels">Customer Name</label>
                 <div class="select-container">
                   <div class="input-container">
                     <input
@@ -166,11 +164,24 @@
                 <div class="select-container">
                   <div class="input-container mobileLeft">
                     <input
-                      type="number"
+                      type="text"
+                       maxlength="10"
                       class="form-control"
                       formControlName="mobile"
                       placeholder="Mobile No"
                     />
+                    @if(itemForm.get('mobile')?.invalid && itemForm.get('mobile')?.touched){
+                       <div class="error">
+                           @if(itemForm.get('mobile')?.errors?.['pattern']){
+                            <small>
+                              Please enter a valid 10-digit mobile number.
+                            </small>
+                           }
+                       </div> 
+                    }
+                    <div>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -237,31 +248,83 @@
               </tbody>
             </table>
           </div>
-            <div class="footers d-flex justify-content-end end-button">
+          <div class="footer-actions">
+          <div class="footers d-flex">
+             <div class="d-flex">
+              <div>
+                <p class="total-para ">
+                  Total Cost
+                  </p>
+                  </div>
+                  <div>
+                  <input
+                    type="text"
+                    class="grand-button ms-2"
+                    placeholder="Purchase Total"
+                  />
+              </div>
+              </div>
+            <div class="d-flex">
+            <div>
               <p class="total-para">
                 MRP Total
+                </p>
+                </div>
+                <div>
                 <input
                   type="text"
-                  class="grand-button"
+                  class="grand-button ms-2"
                   placeholder="Grand Total"
                 />
-              </p>
             </div>
-            <div class="footers d-flex justify-content-end end-button">
+            </div>
+             <div class="d-flex">
+            <div>
               <p class="total-para">
                 Discount %
+                </p>
+                </div>
+                <div>
                 <input
                   type="text"
-                  class="grand-button"
+                  class="grand-button ms-2 color"
                   placeholder="Discount"
                 />
-              </p>
+              </div>
+              </div>
+               <div class="d-flex">
+              <div>
+                <p class="total-para">
+                  Round off
+                  </p>
+                  </div>
+                  <div>
+                  <input
+                    type="text"
+                    class="grand-button ms-2"
+                    placeholder="Round off"
+                  />
+              </div>
+              </div>
+               <div class="d-flex">
+              <div>
+                <p class="total-para">
+                  Final Payable
+                  </p>
+                  </div>
+                  <div>
+                  <input
+                    type="text"
+                    class="grand-button ms-2"
+                    placeholder="Grand Total"
+                  />
+              </div>
+              </div>
             </div>
-          <div class="footers">
-            <div class="d-flex flex-wrap bottom-button">
+            <div class="d-flex flex-wrap gap-1">
               <button
                 type="submit"
-                class="btn table-button"
+                class="btn table-button submit-button"
                 [disabled]="itemForm.invalid"
               >
                 Submit
@@ -275,46 +338,13 @@
               </button>
               <button
                 type="button"
-                class="btn table-button bar-code"
+                class="btn table-button"
                 (click)="scanBarcode()"
               >
-                Generate Bar Code
+                Scan
               </button>
             </div>
-            <div class="d-flex flex-wrap">
-              <div class="grand-total">
-                <p class="total-para">
-                  Total Cost
-                  <input
-                    type="text"
-                    class="grand-button"
-                    placeholder="Purchase Total"
-                  />
-                </p>
-              </div>
-
-              <div class="grand-total">
-                <p class="total-para">
-                  Round off
-                  <input
-                    type="text"
-                    class="grand-button"
-                    placeholder="Round off"
-                  />
-                </p>
-              </div>
-              <div class="grand-total">
-                <p class="total-para">
-                  Final Payable
-                  <input
-                    type="text"
-                    class="grand-button"
-                    placeholder="Grand Total"
-                  />
-                </p>
-              </div>
-            </div>
-          </div>
+        </div>
         </div>
       </form>
     </div>

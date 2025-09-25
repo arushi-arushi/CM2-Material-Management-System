@@ -35,12 +35,16 @@ export class UserPage implements OnInit {
     {
       category: 'Admin',
       userName: 'CD',
+      emailId:'@gmail.com',
+      mobile:'9898989898',
       active: 'yes',
       action: '',
     },
     {
       category: 'Admin',
       userName: 'Suraj',
+      emailId:'@gmail.com',
+      mobile:'9898989898',
       active: 'yes',
       action: '',
     },
@@ -53,6 +57,9 @@ export class UserPage implements OnInit {
     category:[],
     parentUom:[],
     bill:[],
+     item:[],
+    saleTransType:[],
+    transId:[],
   };
 
   showDropdown: { [key in FieldKey]: boolean } = {
@@ -63,11 +70,14 @@ export class UserPage implements OnInit {
     category:false,
     parentUom:false,
     bill:false,
+     item:false,
+    saleTransType:false,
+    transId:false,
   };
   constructor(
     private fb: FormBuilder,
     private route: Router,
-    private popoverController: PopoverController,
+    // private popoverController: PopoverController,
     private ddService:DropDown
   ) {
     this.userForm = this.fb.group({
@@ -78,7 +88,11 @@ export class UserPage implements OnInit {
       ],
       role: ['',[Validators.required,dropdownOptionValidator('role',ddService)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      conPassword:['',[Validators.required,Validators.minLength(6)]],
+       mobile: ['', [Validators.pattern(/^[0-9]{10}$/)]],
+         emailId:['',[Validators.required,Validators.email]],
       active: [true],
+      
     });
   }
 
@@ -123,12 +137,5 @@ export class UserPage implements OnInit {
   delete() {}
   editProduct() {}
   deleteProduct() {}
-  async resetButton() {
-    const popover = await this.popoverController.create({
-      component: ResetPasswordPage,
-      translucent: true,
-      cssClass: 'custom-popover',
-    });
-    await popover.present();
-  }
+ 
 }

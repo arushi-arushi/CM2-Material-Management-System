@@ -8,25 +8,26 @@ import { DropDown, FieldKey } from '../service/dropdown';
 import { dropdownOptionValidator } from '../service/dropdown-validator';
 
 @Component({
-  selector: 'app-item-entry-popup',
-  templateUrl: './item-entry-popup.page.html',
-  styleUrls: ['./item-entry-popup.page.scss'],
+  selector: 'app-item-sale-popup',
+  templateUrl: './item-sale-popup.page.html',
+  styleUrls: ['./item-sale-popup.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, HeaderPage,ReactiveFormsModule]
 })
-export class ItemEntryPopupPage implements OnInit {
-itemEntry:FormGroup;
-fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','parentUom'];
+export class ItemSalePopupPage implements OnInit {
+
+ itemEntry:FormGroup;
+fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category'];
 
   filtered: { [key in FieldKey]: string[] } = {
-      transType: [],
+    transType: [],
     vendor: [],
     invoiceNo: [],
     role: [],
     category:[],
     parentUom:[],
     bill:[],
-    item:[],
+     item:[],
     saleTransType:[],
     transId:[],
   };
@@ -39,7 +40,7 @@ fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','
     category:false,
     parentUom:false,
     bill:false,
-    item:false,
+     item:false,
     saleTransType:false,
     transId:false,
   };
@@ -61,13 +62,14 @@ fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','
       itemCode:['',Validators.required],
       itemName:['',[Validators.required, Validators.pattern, Validators.minLength(3)]],
       curStock:[''],
-      category:['',[dropdownOptionValidator('category',ddService)]],
+      category:['',[dropdownOptionValidator('role',ddService)]],
       purchasePrice:['',Validators.required],
       minStock:[''],
-      parentUom:['',[dropdownOptionValidator('parentUom',ddService)]],
+      parentUom:['',[Validators.required,dropdownOptionValidator('role',ddService)]],
       period:[''],
       mrp:[''],
-      loc:[''],
+      loc:['',Validators.required],
+
     });
    }
 

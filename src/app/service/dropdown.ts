@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export type FieldKey = 'transType' | 'vendor' | 'invoiceNo'|'role'|'category'|'parentUom'|'bill';  // adjust as needed
+export type FieldKey = 'transType' | 'vendor' | 'invoiceNo'|'role'|'category'|'parentUom'|'bill'|'saleTransType'|'item'|'transId';  // adjust as needed
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,16 @@ export type FieldKey = 'transType' | 'vendor' | 'invoiceNo'|'role'|'category'|'p
 export class DropDown {
 
   private sourceLists: { [key in FieldKey]: string[] } = {
-    transType: ['Purchase','Item New', 'Item Update', 'Stock Adjustment'],
+    transType: ['Purchase', 'Item Update', 'Stock Adjustment'],
     vendor: ['Vendor A', 'Vendor B', 'Vendor C'],
     invoiceNo: ['Invoice 1', 'Invoice 2', 'Invoice 3'],
    role:['role1', 'role2', 'role3', 'roleAdmin', 'roleUser', 'roleManager'],
    category:['Category A', 'Category B', 'Category C'],
    parentUom:['parentUom1','parentUom2','parentUom3'],
    bill:['Bill 1','Bill 2'],
+   saleTransType:['New','Return','Replace'],
+   item:['item1','item2'],
+   transId:['Trans1','Trans2'],
   };
   
   // for filtered suggestions
@@ -30,6 +33,9 @@ export class DropDown {
     category:new BehaviorSubject<string[]>([]),
      parentUom:new BehaviorSubject<string[]>([]),
      bill:new BehaviorSubject<string[]>([]),
+     item:new BehaviorSubject<string[]>([]),
+     saleTransType:new BehaviorSubject<string[]>([]),
+    transId:new BehaviorSubject<string[]>([]),
   };
 
   // for dropdown visible state
@@ -41,6 +47,9 @@ export class DropDown {
     category:new BehaviorSubject<boolean>(false),
      parentUom:new BehaviorSubject<boolean>(false),
      bill:new BehaviorSubject<boolean>(false),
+    item:new BehaviorSubject<boolean>(false),
+    saleTransType:new BehaviorSubject<boolean>(false),
+     transId:new BehaviorSubject<boolean>(false),
   };
 
   constructor() { }

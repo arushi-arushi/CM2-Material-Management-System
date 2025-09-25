@@ -12,11 +12,11 @@
          <label name="itemCode" class="labels">Item Code <span>*</span> </label>
          <div class="select-container">
           <div class="input-container">
-        <input type="text" class="form-control" formControlName="bar" placeholder="Item Code"/>
-        @if(itemEntry.get('name')?.touched){
+        <input type="text" class="form-control" formControlName="itemCode" placeholder="Item Code"/>
+        @if(itemEntry.get('itemCode')?.touched){
                   <div class="error">
-                    @if (itemEntry.get('name')?.errors?.['required']) {
-                    <small>User Name is required</small>
+                    @if (itemEntry.get('itemCode')?.errors?.['required']) {
+                    <small>Item Code is required</small>
                     }
                   </div>
                   }
@@ -29,7 +29,7 @@
         <label name="curStock">Current Stock</label>
          <div class="select-container">
                   <div class="input-wrapper">
-        <input type="number" class="form-control color" formControlName="curStock" placeholder="Current Stock"/>
+        <input type="number" class="form-control" formControlName="curStock" placeholder="Current Stock"/>
       </div>
       </div>
     </div>
@@ -42,14 +42,14 @@
          <div class="select-container">
                   <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="itemName" placeholder="Item Name"/>
-         @if((itemEntry.get('name')?.touched||itemEntry.get('name')?.dirty
-                  )&& itemEntry.get('name')?.invalid){
+         @if((itemEntry.get('itemName')?.touched||itemEntry.get('itemName')?.dirty
+                  )&& itemEntry.get('itemName')?.invalid){
                   <div class="error">
-                    @if (itemEntry.get('name')?.errors?.['required']) {
+                    @if (itemEntry.get('itemName')?.errors?.['required']) {
                     <small> Item Name is required</small>
-                    } @if (itemEntry.get('name')?.errors?.['minlength']) {
+                    } @if (itemEntry.get('itemName')?.errors?.['minlength']) {
                     <small> Item Name must be aleast 3 characters long.</small>
-                    } @if (itemEntry.get('name')?.errors?.['pattern']) {
+                    } @if (itemEntry.get('itemName')?.errors?.['pattern']) {
                     <small
                       >Item Name can only contain letters and spaces.</small
                     >
@@ -63,7 +63,7 @@
       <ion-col size="12" size-md="5">
               <div class="form-group">
                 <label name="category" 
-                  >Category</label
+                  >Category <span>*</span></label
                 >
                 <div class="select-container">
                   <div class="input-wrapper">
@@ -83,14 +83,12 @@
                         class="select-icon"
                       ></ion-icon>
                     </div>
-                     @if(itemEntry.get('category')?.touched){
                     <div class="error">
                       @if(itemEntry.get('category')?.errors?.['invalidOption'])
                       {
                       <small>Please select a valid Category from list</small>
                       }
                     </div>
-                    }
                   </div>
                   @if(showDropdown['category']){
                   <div class="dropdown bootstrap-autocomplete-list">
@@ -142,7 +140,7 @@
           <ion-col size="12" size-md="5">
               <div class="form-group">
                 <label for="parentUom" class="labels"
-                  >Parent UOM</label
+                  >UOM <span>*</span></label
                 >
                 <div class="select-container">
                   <div class="input-wrapper">
@@ -152,7 +150,7 @@
                         class="form-control"
                         formControlName="parentUom"
                         id="parentUomInput"
-                        placeholder="Parent UOM"
+                        placeholder="UOM"
                         (focus)="onFocus('parentUom')"
                         (blur)="onBlur('parentUom')"
                         autocomplete="off"
@@ -164,6 +162,9 @@
                     </div>
                      @if(itemEntry.get('parentUom')?.touched){
                     <div class="error">
+                      @if (itemEntry.get('parentUom')?.errors?.['required']) {
+                      <small>UOM is required</small>
+                      }
                       @if(itemEntry.get('parentUom')?.errors?.['invalidOption'])
                       {
                       <small>Please select a valid UOM from list</small>
@@ -201,7 +202,7 @@
       <ion-row>
         <ion-col size="12" size-md="5">
       <div class="form-group">
-        <label name="mrp" class="labels">MRP</label>
+        <label name="mrp" class="labels">MRP <span>*</span></label>
          <div class="select-container">
                   <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="mrp" placeholder="MRP"/>
@@ -211,10 +212,17 @@
 </ion-col>
   <ion-col size="12" size-md="5">
       <div class="form-group">
-        <label name="loc">Location</label>
+        <label name="loc">Location <span>*</span></label>
          <div class="select-container">
                   <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="loc" placeholder="Location"/>
+          @if(itemEntry.get('loc')?.touched){
+                  <div class="error">
+                    @if (itemEntry.get('loc')?.errors?.['required']) {
+                    <small>Location is required</small>
+                    }
+                  </div>
+                  }
 </div>
 </div>
 </div>
@@ -223,7 +231,7 @@
 <ion-row>
 <ion-col size="12" size-md="5">
          <div class="form-group">
-        <label name="qty" class="labels">Quantity</label>
+        <label name="qty" class="labels">Quantity <span>*</span></label>
          <div class="select-container">
                   <div class="input-wrapper">
         <input type="text" class="form-control" formControlName="qty" placeholder="Quantity"/>
@@ -243,38 +251,6 @@
         </ion-col>
       </ion-row>
 
-     <div class="d-flex table-container gap-2">
-    <div>
-          <table class="table table-bordered table-sm mt-3 auto-fit-table">
-            <thead>
-              <tr>
-                <th>Child UOM</th>
-                <th>Conversion</th>
-                <th>MRP</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of itemList; track $index) {
-              <tr>
-                <td>{{item.childUOM}}</td>
-                <td>{{item.conversion}}</td>
-                <td>{{item.mrp}}</td>
-              </tr>
-            }
-            </tbody>
-          </table>
-        </div>
-          <div class="d-flex add mt-3 gap-2">
-            <button type="button" class="btn add-remove" (click)="addItem()">+</button>
-            <button
-              type="button"
-              class="btn add-remove"
-              (click)="removeItem()"
-            >
-            -
-            </button>
-        </div>
-        </div>
           <div class="d-flex justify-content-between align-items-center my-2">
           <div class="d-flex gap-2">
             <button type="submit" class="btn table-button submit-button " [disabled]="itemEntry.invalid" >Submit</button>

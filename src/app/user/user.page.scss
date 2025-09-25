@@ -14,11 +14,14 @@ app-sidebar {
 
   .form-group {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 5px;
+    align-items: center;
+    margin-bottom: 2px;
 
     label {
-      width: 80px; /* fixed width for labels */
+      width: 90px; /* fixed width for labels */
+    }
+    .labels{
+      width: 110px;
     }
     .item{
       margin-left: 86px;
@@ -36,21 +39,13 @@ app-sidebar {
     }
     .form-control {
       flex: 1; /* input expands to take remaining space */
-      border-radius: 0px;
+      border-radius: 4px;
       max-width: 400px;
-      font-size: 10px;
       border:1px solid black;
     }
     .select-wrapper {
     position: relative;
     width: 100%;
-
-    select {
-      appearance: none;
-      padding: 6px 8px;
-      padding-right: 30px;
-      height: 26px; /* make it same height as input */
-    }
 
     .select-icon {
       position: absolute;
@@ -60,6 +55,11 @@ app-sidebar {
       pointer-events: none;
       font-size: 14px;
       color: #555;
+    }
+     @media (max-width:768px) {
+      .select-icon{
+        right:180px ;
+      }
     }
     @media (min-width:540px) and (max-width:765px) {
       .select-icon{
@@ -73,14 +73,15 @@ app-sidebar {
     }
      @media (min-width:420px) and (max-width:500px) {
       .select-icon{
-        right:60px ;
+        right:100px ;
       }
     }
-     @media (min-width:400px) and (max-width:420px) {
+     @media (max-width:420px) {
       .select-icon{
         right:30px ;
       }
     }
+   
   }
    
     /* styling for the dropdown suggestions */ 
@@ -117,16 +118,39 @@ app-sidebar {
 }
 
 .dropdown-item:hover {
-  background-color:#b4b2b2;
+   background-color:#eee8e8;
 }
  
  @media (max-width:768px){
+  label,.labels{
+    width: 80px;
+  }
+      .item{
+        width: 360px;
+      }
+      .form-control{
+        max-width: 240px;
+      }
+      .reset{
+        margin-left: 79px;
+      }
+    }
+    @media (max-width:500px) {
+      .item{
+        margin-left: 0px;
+      width: 325px;
+      }
+    }
+    @media(max-width:375px){
+      label,.labels{
+    width: 80px;
+  }
       .item{
         margin-left: 0px;
         width: 300px;
       }
       .form-control{
-        max-width: 240px;
+        max-width: 220px;
       }
       .reset{
         margin-left: 79px;
@@ -142,26 +166,7 @@ app-sidebar {
     }
   }
 
-   .submitButton{
-      margin-left: 83px;
-    }
-    .table-button {
-    background-color: #e1c068;
-   margin-right: 10px;
-   @media (max-width:1520px) {
-    width: 110px;
-    margin-right: 12px;
-    padding: 0px;
-   }
-    @media (max-width:500px) {
-      margin-left: 0px;
-    display: inline-block;
-    width: 100px;
-     font-size: small;
-    margin-right: 2px;
-    padding: 0px;
-    }
-  }  
+ 
 
   /* Table styles for auto fit */
   .auto-fit-table{
@@ -185,5 +190,26 @@ app-sidebar {
     width:300px !important;
   }
 }
+  .submit-button{
+      margin-left: 83px;
+      background-color: #e1c068;
+      border: 1px solid black;
+    }
+    .table-button {
+   margin-right: 10px;
+   @media (max-width:1520px) {
+    width: 110px;
+    margin-right: 12px;
+    padding: 0px;
+   }
+    @media (max-width:500px) {
+      margin-left: 0px;
+    display: inline-block;
+    width: 100px;
+     font-size: small;
+    margin-right: 2px;
+    padding: 0px;
+    }
+  }  
 }
 

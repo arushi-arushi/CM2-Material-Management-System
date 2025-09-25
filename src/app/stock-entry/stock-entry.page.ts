@@ -31,7 +31,7 @@ export class StockEntryPage implements OnInit {
   sidebarOpen = false;
   @ViewChild(SidebarPage) stock!: SidebarPage;
   materialForm: FormGroup;
-  fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','bill'];
+  fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','bill','item','transId'];
 
   filtered: { [key in FieldKey]: string[] } = {
     transType: [],
@@ -41,6 +41,9 @@ export class StockEntryPage implements OnInit {
     category:[],
     parentUom:[],
     bill:[],
+    saleTransType:[],
+    item:[],
+    transId:[],
   };
 
   showDropdown: { [key in FieldKey]: boolean } = {
@@ -51,6 +54,9 @@ export class StockEntryPage implements OnInit {
     category:false,
     parentUom:false,
     bill:false,
+    saleTransType:false,
+    item:false,
+    transId:false,
   };
 
   productList = [
@@ -120,29 +126,23 @@ export class StockEntryPage implements OnInit {
 
   constructor(private fb: FormBuilder, private ddService: DropDown,private popoverController:PopoverController) {
     this.materialForm = this.fb.group({
-      transType: [
-        'Purchase',
-        [
-          Validators.required,
-          dropdownOptionValidator('transType', this.ddService),
-        ],
-      ],
-      vendor: [''],
-      invoiceNo: [''],
-      category: [''],
+      transType: ['Purchase',[dropdownOptionValidator('transType',ddService)]],
+      vendor: ['',[dropdownOptionValidator('vendor',ddService)]],
+      invoiceNo: ['',[dropdownOptionValidator('invoiceNo',ddService)]],
+      category: ['',[dropdownOptionValidator('category',ddService)]],
       remark:[''],
-      item:[''],
+      item:['',[dropdownOptionValidator('item',ddService)]],
       date: [''],
-      comment: [''],
+      transId:['',[dropdownOptionValidator('transId',ddService)]],
     });
 
     // this.calculateTotal();
   }
 
   ngOnInit() {
-    this.materialForm.get('transType')?.valueChanges.subscribe(val => {
-      this.applyConditionalValidation(val);
-    });
+    // this.materialForm.get('transType')?.valueChanges.subscribe(val => {
+    //   this.applyConditionalValidation(val);
+    // });
     this.fieldKeys.forEach((field) => {
       // subscribe to filtered list
       this.ddService.getFiltered(field).subscribe((list) => {
@@ -166,33 +166,33 @@ export class StockEntryPage implements OnInit {
       }
     });
   }
-applyConditionalValidation(transTypeValue:string){
-      const invoiceCtrl = this.materialForm.get('invoiceNo');
-    const vendorCtrl = this.materialForm.get('vendor');
-    const categoryCtrl = this.materialForm.get('category');
-    const itemCtrl = this.materialForm.get('item');
+// applyConditionalValidation(transTypeValue:string){
+//       const invoiceCtrl = this.materialForm.get('invoiceNo');
+//     const vendorCtrl = this.materialForm.get('vendor');
+//     const categoryCtrl = this.materialForm.get('category');
+//     const itemCtrl = this.materialForm.get('item');
 
-    if (transTypeValue === 'Purchase') {
-      // make vendor & invoice required
-      invoiceCtrl?.setValidators([Validators.required ,dropdownOptionValidator('invoiceNo', this.ddService)]);
-      vendorCtrl?.setValidators([Validators.required ,dropdownOptionValidator('vendor', this.ddService)]);
-      categoryCtrl?.clearValidators();
-      itemCtrl?.clearValidators();
-    }
+//     if (transTypeValue === 'Purchase') {
+//       // make vendor & invoice required
+//       invoiceCtrl?.setValidators([Validators.required ,dropdownOptionValidator('invoiceNo', this.ddService)]);
+//       vendorCtrl?.setValidators([Validators.required ,dropdownOptionValidator('vendor', this.ddService)]);
+//       categoryCtrl?.clearValidators();
+//       itemCtrl?.clearValidators();
+//     }
    
-    else {
-      categoryCtrl?.setValidators([Validators.required,dropdownOptionValidator('category', this.ddService)]);
-      vendorCtrl?.clearValidators();
-      invoiceCtrl?.clearValidators();
-      itemCtrl?.clearValidators();
-    }
+//     else {
+//       categoryCtrl?.setValidators([Validators.required,dropdownOptionValidator('category', this.ddService)]);
+//       vendorCtrl?.clearValidators();
+//       invoiceCtrl?.clearValidators();
+//       itemCtrl?.clearValidators();
+//     }
 
-    // After changing validators, update validity
-    invoiceCtrl?.updateValueAndValidity();
-    vendorCtrl?.updateValueAndValidity();
-    categoryCtrl?.updateValueAndValidity();
-    itemCtrl?.updateValueAndValidity();
-  }
+//     // After changing validators, update validity
+//     invoiceCtrl?.updateValueAndValidity();
+//     vendorCtrl?.updateValueAndValidity();
+//     categoryCtrl?.updateValueAndValidity();
+//     itemCtrl?.updateValueAndValidity();
+//   }
   onFocus(field: FieldKey) {
     this.ddService.focus(field);
   }
@@ -235,7 +235,7 @@ applyConditionalValidation(transTypeValue:string){
     const popover = await this.popoverController.create({
       component:ItemBarCodePage,
       translucent:true,
-      cssClass:'customs-popover',
+      cssClass:'custom-popover',
     });
      await popover.present();
   }
@@ -247,7 +247,7 @@ applyConditionalValidation(transTypeValue:string){
     this.materialForm.reset();
   }
 
-  display() {
+display() {
     console.log('Scan initiated');
   }
 }

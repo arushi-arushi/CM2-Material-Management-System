@@ -11,8 +11,8 @@ import {
 import { SidebarPage } from '../sidebar/sidebar.page';
 import { dropdownOptionValidator } from '../service/dropdown-validator';
 import { DropDown, FieldKey } from '../service/dropdown';
-import { ItemEntryPopupPage } from '../item-entry-popup/item-entry-popup.page';
-import { ItemBarCodePage } from '../item-bar-code/item-bar-code.page';
+import { ItemSalePopupPage } from '../item-sale-popup/item-sale-popup.page';
+import { ItemMultiplePopupPage } from '../item-multiple-popup/item-multiple-popup.page';
 @Component({
   selector: 'app-sale',
   templateUrl: './sale.page.html',
@@ -29,7 +29,7 @@ export class SalePage implements OnInit {
 sidebarOpen=false;
    @ViewChild(SidebarPage) stock!:SidebarPage;
   itemForm: FormGroup;
-  fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','bill'];
+  fieldKeys: FieldKey[] = ['transType', 'vendor', 'invoiceNo', 'role','category','bill','saleTransType'];
   filtered: { [key in FieldKey]: string[] } = {
     transType: [],
     vendor: [],
@@ -38,6 +38,9 @@ sidebarOpen=false;
     category:[],
     parentUom:[],
     bill:[],
+    item:[],
+    saleTransType:[],
+    transId:[],
   };
 
   showDropdown: { [key in FieldKey]: boolean } = {
@@ -48,6 +51,9 @@ sidebarOpen=false;
     category:false,
     parentUom:false,
     bill:false,
+    item:false,
+    saleTransType:false,
+    transId:false,
   };
   productList = [
     {
@@ -130,20 +136,18 @@ sidebarOpen=false;
 
   constructor(private fb: FormBuilder, private ddService: DropDown,private popoverController:PopoverController) {
     this.itemForm = this.fb.group({
-      transType: ['Purchase',
+      saleTransType: ['New',
         [
-          Validators.required,
-          dropdownOptionValidator('transType', this.ddService),
+          dropdownOptionValidator('saleTransType', this.ddService),
         ],
       ],
       bill: ['',
         [
-          Validators.required,
           dropdownOptionValidator('bill', this.ddService),
         ],],
       name: [''],
-      mobile: [''],
-      comment:['']
+      mobile: ['', [Validators.pattern(/^[0-9]{10}$/)]],
+      similar:['true'],
     });
 
     this.calculateTotal();
@@ -220,9 +224,14 @@ print(){
     this.itemForm.reset();
   }
 
-  scanBarcode() {
-    console.log('Scan initiated');
-  }
+  async scanBarcode() {
+      const popover = await this.popoverController.create({
+        component:ItemSalePopupPage,
+        translucent:true,
+        cssClass:'scan-custom-popover',
+      });
+       await popover.present();
+    }
 }
 
 
